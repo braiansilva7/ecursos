@@ -1,0 +1,297 @@
+<div>
+  <h2 id="page-heading" data-cy="CapacitacaoHeading">
+    <span jhiTranslate="ecursosApp.capacitacao.home.title">Capacitacaos</span>
+
+    <div class="d-flex justify-content-end">
+      <!-- <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="ecursosApp.capacitacao.home.refreshListLabel">Atualizar lista</span>
+      </button> -->
+
+      <button
+        *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_CCABR_ELO_EXECUTIVO_AVANCADO']"
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-capacitacao"
+        [routerLink]="['/capacitacao/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span class="hidden-sm-down" jhiTranslate="ecursosApp.capacitacao.home.createLabel">Criar novo Capacitacao</span>
+      </button>
+
+      <button
+        id="generate-pdf"
+        class="btn btn-secondary ms-2"
+        (click)="generatePDF()"
+      >
+        <span jhiTranslate="ecursosApp.capacitacao.home.generatePDF">Gerar PDF</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <form name="searchForm" class="row row-cols-sm-auto align-items-center">
+    <div class="col-sm-12">
+      <div class="input-group w-100 mt-3">
+        <label class="visually-hidden" for="currentSearch" jhiTranslate="ecursosApp.capacitacao.home.search"
+          >Pesquisar por Capacitacao</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="currentSearch"
+          id="currentSearch"
+          name="currentSearch"
+          placeholder="{{ 'ecursosApp.capacitacao.home.search' | translate }}"
+        />
+
+        <button class="btn btn-info" (click)="search(currentSearch)">
+          <fa-icon icon="search"></fa-icon>
+        </button>
+
+        @if (currentSearch) {
+          <button class="btn btn-danger" (click)="search('')">
+            <fa-icon icon="trash-alt"></fa-icon>
+          </button>
+        }
+      </div>
+    </div>
+  </form>
+
+  <jhi-filter [filters]="filters"></jhi-filter>
+
+  @if (capacitacaos?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="ecursosApp.capacitacao.home.notFound">Nenhum Capacitacao encontrado</span>
+    </div>
+  }
+
+  @if (capacitacaos && capacitacaos.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <!-- <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th> -->
+            <th scope="col" jhiSortBy="inicio">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.turma.inicio">Inicio</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="termino">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.turma.termino">Termino</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="ano">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.turma.ano">Ano</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="capacitacaoStatus">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.capacitacao.capacitacaoStatus">Capacitacao Status</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="numeroBca">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.turma.numeroBca">BCA</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="om">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.militar.om">Organização Militar</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="posto">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.posto.detail.title">Posto</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="militar.nomeGuerra">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.militar.nomeGuerra">nomeGuerra</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="email">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.militar.email">email</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="tipo">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.tipo.categoria">Tipo</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="turma">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.capacitacao.turma">Turma</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="cursoSigla">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.curso.cursoSigla">cursoSigla</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="sigpes">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.capacitacao.sigpes">Sigpes</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (capacitacao of capacitacaos; track trackId) {
+            <tr data-cy="entityTable">
+              <!-- <td>
+                <a [routerLink]="['/capacitacao', capacitacao.id, 'view']">{{ capacitacao.id }}</a>
+              </td> -->
+              <td>
+                <div *ngIf="capacitacao?.turma">
+                  {{ getFormattedDate(capacitacao?.turma?.inicio) }}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="capacitacao?.turma">
+                  {{ getFormattedDate(capacitacao?.turma?.termino) }}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="capacitacao?.turma">
+                  {{ capacitacao.turma?.ano }}
+                </div>
+              </td>
+              <td [jhiTranslate]="'ecursosApp.StatusEnum.' + (capacitacao.capacitacaoStatus ?? 'null')">
+                {{
+                  {
+                    null: '',
+                    CONCLUIDO: 'CONCLUIDO',
+                    APROVADO: 'APROVADO',
+                    REPROVADO: 'REPROVADO',
+                    EM_ANDAMENTO: 'EM_ANDAMENTO',
+                    INDICADO: 'INDICADO',
+                    INDICACAO_NAO_APROVADA_PELA_ORGANIZACAO_DO_CURSO: 'INDICACAO_NAO_APROVADA_PELA_ORGANIZACAO_DO_CURSO',
+                    MATRICULADO: 'MATRICULADO',
+                    NAO_APROVADO_PELA_DTI_COMGAP: 'NAO_APROVADO_PELA_DTI_COMGAP',
+                  }[capacitacao.capacitacaoStatus ?? 'null']
+                }}
+              </td>
+              <td>
+                <div *ngIf="capacitacao?.turma">
+                  {{ capacitacao.turma?.numeroBca }}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="capacitacao?.militar">
+                  {{ capacitacao.militar?.om }}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="capacitacao?.militar">
+                  {{ capacitacao.militar?.posto?.postoSigla }}
+                </div>
+              </td>
+              <td>
+                @if (capacitacao.militar) {
+                  <div>
+                    <a [routerLink]="['/militar', capacitacao.militar.id, 'view']">{{ capacitacao.militar.nomeGuerra }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                <div *ngIf="capacitacao?.militar">
+                  {{ capacitacao?.militar?.email }}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="capacitacao?.turma?.curso">
+                  {{ capacitacao.turma?.curso?.tipo?.categoria }}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="capacitacao.turma?.curso">
+                  {{ capacitacao.turma?.curso?.cursoNome }}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="capacitacao.turma?.curso?.cursoSigla">
+                  {{ capacitacao.turma?.curso?.cursoSigla }}
+                </div>
+              </td>
+              <td>
+                <div *ngIf="capacitacao?.sigpes">
+                  {{ capacitacao.sigpes }}
+                </div>
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/capacitacao', capacitacao.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                  </a>
+
+                  <a *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_CCABR_ELO_EXECUTIVO_AVANCADO']" 
+                    [routerLink]="['/capacitacao', capacitacao.id, 'edit']" 
+                    class="btn btn-primary btn-sm" 
+                    data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                  </a>
+
+                  <button *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_CCABR_ELO_EXECUTIVO_AVANCADO']" 
+                    type="submit" 
+                    (click)="delete(capacitacao)" 
+                    class="btn btn-danger btn-sm" 
+                    data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (capacitacaos && capacitacaos.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,150 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8 p-4" style="background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 8px;">
+    @if (capacitacao(); as capacitacaoRef) {
+      <div>
+        <h2 class="text-center" data-cy="capacitacaoDetailsHeading">
+          <span jhiTranslate="ecursosApp.capacitacao.detail.title">Capacitação</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+        <jhi-alert></jhi-alert>
+
+        <!-- Foto no topo -->
+        <div class="d-flex justify-content-center mb-4">
+          <img
+            *ngIf="fotoUrl"
+            [src]="fotoUrl"
+            class="img-fluid"
+            alt="Foto do Militar"
+            style="width: 220px; height: 220px; object-fit: cover; border: 2px solid black; border-radius: 8px;"
+          />
+          <img
+            *ngIf="!fotoUrl"
+            src="../../../../content/assets/img/avatar5.png"
+            class="img-fluid"
+            alt="Foto não disponível"
+            style="width: 220px; height: 220px; object-fit: cover; border: 2px solid black; border-radius: 8px;"
+          />
+        </div>
+
+        <dl class="row">
+          <!-- Primeira linha: Status da Capacitação e Militar -->
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.turma.inicio">Inicio</span></dt>
+            <dd>
+              @if (capacitacao()!.militar) {
+               {{ getFormattedDate(capacitacaoRef?.turma?.inicio) }}
+              }
+            </dd>
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.turma.termino">termino</span></dt>
+            <dd>
+              @if (capacitacao()!.militar) {
+               {{ getFormattedDate(capacitacaoRef?.turma?.termino) }}
+              }
+            </dd>
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.turma.ano">Ano</span></dt>
+            <dd>
+              @if (capacitacao()!.militar) {
+               {{ capacitacaoRef?.turma?.ano }}
+              }
+            </dd>
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.capacitacao.capacitacaoStatus">Capacitação Status</span></dt>
+            <dd>
+              <span [jhiTranslate]="'ecursosApp.StatusEnum.' + (capacitacaoRef.capacitacaoStatus ?? 'null')">{{
+                {
+                  null: '',
+                  CONCLUIDO: 'CONCLUIDO',
+                  APROVADO: 'APROVADO',
+                  REPROVADO: 'REPROVADO',
+                  EM_ANDAMENTO: 'EM_ANDAMENTO',
+                  INDICADO: 'INDICADO',
+                  INDICACAO_NAO_APROVADA_PELA_ORGANIZACAO_DO_CURSO: 'INDICACAO_NAO_APROVADA_PELA_ORGANIZACAO_DO_CURSO',
+                  MATRICULADO: 'MATRICULADO',
+                  NAO_APROVADO_PELA_DTI_COMGAP: 'NAO_APROVADO_PELA_DTI_COMGAP',
+                }[capacitacaoRef.capacitacaoStatus ?? 'null']
+              }}</span>
+            </dd>
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.capacitacao.sigpes">Sigpes</span></dt>
+            <dd>
+               {{ capacitacaoRef.sigpes }}
+            </dd>
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.turma.numeroBca">numeroBca</span></dt>
+            <dd>
+              @if (capacitacao()!.militar) {
+               {{ capacitacaoRef.turma?.numeroBca }}
+              }
+            </dd>
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.militar.om">Organização Militar</span></dt>
+            <dd>
+              @if (capacitacao()!.militar) {
+               {{ capacitacaoRef.militar?.om }}
+              }
+            </dd>
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.posto.detail.title">Posto</span></dt>
+            <dd>
+              @if (capacitacao()!.militar) {
+               {{ capacitacaoRef.militar?.posto?.postoSigla }}
+              }
+            </dd>
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.militar.nomeGuerra">Nome de Guerra</span></dt>
+            <dd>
+              @if (capacitacao()!.militar) {
+               {{ capacitacaoRef.militar?.nomeGuerra }}
+              }
+            </dd>
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.capacitacao.militar">Militar</span></dt>
+            <dd>
+              @if (capacitacao()!.militar) {
+                <a [routerLink]="['/militar', capacitacao()!.militar?.id, 'view']">{{ capacitacaoRef.militar?.nomeCompleto }}</a>
+              }
+            </dd>
+          </div>
+
+          <!-- Segunda linha: Turma -->
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.capacitacao.turma">Turma</span></dt>
+            <dd>
+              @if (capacitacao()!.turma) {
+                <a [routerLink]="['/turma', capacitacao()!.turma?.id, 'view']">{{ capacitacaoRef.turma?.curso?.cursoNome }}</a>
+              }
+            </dd>
+          </div>
+        </dl>
+
+        <div class="mt-4 d-flex justify-content-between">
+          <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+            <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+          </button>
+
+          <button
+            *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_CCABR_ELO_EXECUTIVO_AVANCADO']" 
+            type="button" 
+            [routerLink]="['/capacitacao', capacitacaoRef.id, 'edit']" 
+            class="btn btn-primary">
+            <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

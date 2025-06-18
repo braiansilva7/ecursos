@@ -1,0 +1,57 @@
+{
+  "annotations": {
+    "changelogDate": "20241220145945"
+  },
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "inicio",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "termino",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "ano",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "statusCurso",
+      "fieldType": "StatusCursoEnum",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "AGUARDANDO_APROVACAO,AGUARDANDO_BCA_APROVACAO,CANCELADO,CONCLUIDO,EM_ANDAMENTO,INDICACAO_NAO_APROVADA_PELA_ORGANIZACAO_DO_CURSO,INDICACAO_QUANDO_CHEGAR_APROVACAO,INDICACAO,APROVADO"
+    },
+    {
+      "fieldName": "modalidade",
+      "fieldType": "ModalidadeEnum",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "PRESENCIAL,ONLINE,EAD"
+    },
+    {
+      "fieldName": "qtdVagas",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "numeroBca",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Turma",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "cursoNome",
+      "otherEntityName": "curso",
+      "relationshipName": "curso",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"]
+    }
+  ],
+  "service": "serviceClass",
+  "skipClient": true,
+  "skipServer": true
+}

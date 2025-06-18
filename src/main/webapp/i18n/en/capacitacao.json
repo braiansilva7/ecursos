@@ -1,0 +1,29 @@
+{
+  "ecursosApp": {
+    "capacitacao": {
+      "home": {
+        "title": "Training",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Training",
+        "generatePDF": "Generate PDF",
+        "createOrEditLabel": "Create or edit a Training",
+        "search": "Search...",
+        "notFound": "No Training found"
+      },
+      "created": "A new Training is created with identifier {{ param }}",
+      "updated": "A Training is updated with identifier {{ param }}",
+      "deleted": "A Training is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Training of the military?"
+      },
+      "detail": {
+        "title": "Training"
+      },
+      "id": "ID",
+      "capacitacaoStatus": "Military Status",
+      "militar": "Military",
+      "turma": "Class",
+      "sigpes": "Released on SIGPES"
+    }
+  }
+}

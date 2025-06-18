@@ -1,0 +1,29 @@
+{
+  "ecursosApp": {
+    "posto": {
+      "home": {
+        "title": "Military Rank",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Military Rank",
+        "createOrEditLabel": "Create or edit a Military Rank",
+        "search": "Search...",
+        "notFound": "No Military Rank found"
+      },
+      "created": "A new Military Rank is created with identifier {{ param }}",
+      "updated": "A Military Rank is updated with identifier {{ param }}",
+      "deleted": "A Military Rank is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Military Rank?"
+      },
+      "detail": {
+        "title": "Military Rank"
+      },
+      "id": "ID",
+      "postoSigla": "Military Rank",
+      "descricao": "Description",
+      "prioridade": "Priority",
+      "orgao": "Branch",
+      "codSigpes": "Sigpes Code"
+    }
+  }
+}

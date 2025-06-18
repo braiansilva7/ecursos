@@ -1,0 +1,10 @@
+{
+  "ecursosApp": {
+    "StatusMilitarEnum": {
+      "null": "",
+      "ATIVA": "ACTIVE",
+      "INATIVO": "INACTIVE",
+      "TRANSFERIDO": "TRANSFERRED"
+    }
+  }
+}

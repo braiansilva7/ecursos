@@ -1,0 +1,29 @@
+{
+  "ecursosApp": {
+    "capacitacao": {
+      "home": {
+        "title": "Capacitação",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar uma nova Capacitação",
+        "generatePDF": "Gerar PDF",
+        "createOrEditLabel": "Criar ou editar Capacitação",
+        "search": "Pesquisar...",
+        "notFound": "Nenhuma Capacitação encontrada"
+      },
+      "created": "Uma nova Capacitação foi criado com o identificador {{ param }}",
+      "updated": "Uma nova Capacitação foi atualizado com o identificador {{ param }}",
+      "deleted": "Uma Capacitação foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir a Capacitação do militar?"
+      },
+      "detail": {
+        "title": "Capacitação"
+      },
+      "id": "ID",
+      "capacitacaoStatus": "Status",
+      "militar": "Militar",
+      "turma": "Turma",
+      "sigpes": "SIGPES"
+    }
+  }
+}

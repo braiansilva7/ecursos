@@ -1,0 +1,31 @@
+<div class="app-wrapper">
+
+  <div class="app-header">
+    <router-outlet name="navbar"></router-outlet>
+  </div>
+  
+  @if(account() != null){
+    <aside class="app-sidebar bg-primary-subtle shadow" data-bs-theme="dark">
+      <jhi-sidebar></jhi-sidebar>
+      <div class="sidebar-footer">
+        <span>&lt;/&gt; VERSÃO: 1.0</span>
+      </div>
+    </aside>
+   
+  }
+  
+  <main class="app-main">
+    <div class="app-content">
+      <div class="container-fluid">
+        <div class="card jh-card">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <div class="app-footer">
+    <jhi-footer></jhi-footer>
+  </div>
+
+</div>

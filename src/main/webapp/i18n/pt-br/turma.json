@@ -1,0 +1,35 @@
+{
+  "ecursosApp": {
+    "turma": {
+      "home": {
+        "title": "Turmas",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar nova Turma",
+        "createOrEditLabel": "Criar ou editar Turma",
+        "search": "Pesquisar por Turma",
+        "notFound": "Nenhum Turma encontrada"
+      },
+      "created": "Uma nova Turma foi criado com o identificador {{ param }}",
+      "updated": "Uma Turma foi atualizada com o identificador {{ param }}",
+      "deleted": "Uma Turma foi excluída com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir Turma {{ id }}?"
+      },
+      "detail": {
+        "title": "Turma"
+      },
+      "id": "ID",
+      "qtdVagasTurma": "Quantidade de Vagas",
+      "qtdVagasDisponiveis": "Vagas Disponíveis",
+      "semVagasDisponiveis": "Sem Vagas Disponíveis",
+      "inicio": "Início",
+      "termino": "Término",
+      "ano": "Ano",
+      "statusCurso": "Status Curso",
+      "modalidade": "Modalidade",
+      "qtdVagas": "Nº de Vagas",
+      "numeroBca": "BCA",
+      "curso": "Curso"
+    }
+  }
+}

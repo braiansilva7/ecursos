@@ -1,0 +1,214 @@
+<div>
+  <h2 id="page-heading" data-cy="MilitarHeading">
+    <span jhiTranslate="ecursosApp.militar.home.title">Militars</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadEfetivo()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="ecursosApp.militar.home.syncListLabel">Sincronizar Militares</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-militar"
+        [routerLink]="['/militar/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span class="hidden-sm-down" jhiTranslate="ecursosApp.militar.home.createLabel">Criar novo Militar</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <form name="searchForm" class="row row-cols-sm-auto align-items-center">
+    <div class="col-sm-12">
+      <div class="input-group w-100 mt-3">
+        <label class="visually-hidden" for="currentSearch" jhiTranslate="ecursosApp.militar.home.search">Pesquisar por Militar</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="currentSearch"
+          id="currentSearch"
+          name="currentSearch"
+          placeholder="{{ 'ecursosApp.militar.home.search' | translate }}"
+        />
+
+        <button class="btn btn-info" (click)="search(currentSearch)">
+          <fa-icon icon="search"></fa-icon>
+        </button>
+
+        @if (currentSearch) {
+          <button class="btn btn-danger" (click)="search('')">
+            <fa-icon icon="trash-alt"></fa-icon>
+          </button>
+        }
+      </div>
+    </div>
+  </form>
+
+  <jhi-filter [filters]="filters"></jhi-filter>
+
+  @if (militars?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="ecursosApp.militar.home.notFound">Nenhum Militar encontrado</span>
+    </div>
+  }
+
+  @if (militars && militars.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="saram">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.militar.saram">Saram</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="posto.descricao">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.militar.posto">Posto</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nomeCompleto">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.militar.nomeCompleto">Nome Completo</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nomeGuerra">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.militar.nomeGuerra">Nome Guerra</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+  
+            <th scope="col" jhiSortBy="email">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.militar.email">email</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            
+            <th scope="col" jhiSortBy="om">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.militar.om">Om</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="forca">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.militar.forca">Forca</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="telefone">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.militar.telefone">Telefone</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="statusMilitar">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.militar.statusMilitar">Status Militar</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (militar of militars; track trackId) {
+            <tr data-cy="entityTable">
+              <td>{{ militar.saram }}</td>
+              <td>
+                @if (militar.posto) {
+                  <div>
+                    {{ militar.posto.postoSigla }}
+                  </div>
+                }
+              </td>
+              <td>{{ militar.nomeCompleto }}</td>
+              <td>{{ militar.nomeGuerra }}</td>
+              <td>{{ militar.email }}</td>
+              <td>{{ militar.om }}</td>
+              <td [jhiTranslate]="'ecursosApp.ForcaEnum.' + (militar.forca ?? 'null')">
+                {{
+                  {
+                    null: '',
+                    MARINHA_DO_BRASIL: 'MARINHA_DO_BRASIL',
+                    EXERCITO_BRASILEIRO: 'EXERCITO_BRASILEIRO',
+                    FORCA_AEREA_BRASILEIRA: 'FORCA_AEREA_BRASILEIRA',
+                    POLICIA_MILITAR: 'POLICIA_MILITAR',
+                    CORPO_DE_BOMBEIROS: 'CORPO_DE_BOMBEIROS',
+                    ORGAO_CIVIL_BRASILEIRO: 'ORGAO_CIVIL_BRASILEIRO',
+                    ORGAO_ESTRANGEIRO: 'ORGAO_ESTRANGEIRO',
+                  }[militar.forca ?? 'null']
+                }}
+              </td>
+              <td>{{ militar.telefone }}</td>
+              <td [jhiTranslate]="'ecursosApp.StatusMilitarEnum.' + (militar.statusMilitar ?? 'null')">
+                {{ { null: '', ATIVA: 'ATIVA', INATIVO: 'INATIVO', TRANSFERIDO: 'TRANSFERIDO' }[militar.statusMilitar ?? 'null'] }}
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/militar', militar.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton" [title]="'entity.action.view' | translate">
+                    <fa-icon icon="eye"></fa-icon>
+                  </a>
+
+                  <a [routerLink]="['/militar', militar.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton" [title]="'entity.action.edit' | translate">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                  </a>
+
+                  <button type="submit" (click)="delete(militar)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton" [title]="'entity.action.delete' | translate">
+                    <fa-icon icon="times"></fa-icon>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (militars && militars.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

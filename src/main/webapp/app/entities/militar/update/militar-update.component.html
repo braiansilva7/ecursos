@@ -1,0 +1,137 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-militar-heading" data-cy="MilitarCreateUpdateHeading" jhiTranslate="ecursosApp.militar.home.createOrEditLabel">
+        Criar ou editar Militar
+      </h2>
+
+      <div class="mb-3 p-3" style="background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 8px; width: 90%;">
+        <div class="row">
+          <!-- Coluna 1 -->
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label" for="field_saram" jhiTranslate="ecursosApp.militar.saram">Saram</label>
+              <div class="input-group">
+                <input type="text" class="form-control" name="saram" id="field_saram" data-cy="saram" formControlName="saram" />
+                <button class="btn btn-outline-secondary" type="button" (click)="pesquisarSaram()">
+                  <fa-icon [icon]="'search'"></fa-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="field_nomeGuerra" jhiTranslate="ecursosApp.militar.nomeGuerra">Nome Guerra</label>
+              <input type="text" class="form-control" name="nomeGuerra" id="field_nomeGuerra" data-cy="nomeGuerra" formControlName="nomeGuerra" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="field_nrAntiguidade" jhiTranslate="ecursosApp.militar.nrAntiguidade">Nr. Antiguidade</label>
+              <input type="text" class="form-control" name="nrAntiguidade" id="field_nrAntiguidade" data-cy="nrAntiguidade" formControlName="nrAntiguidade" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="field_email" jhiTranslate="ecursosApp.militar.email">Email</label>
+              <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="field_posto" jhiTranslate="ecursosApp.militar.posto">Posto</label>
+              <select class="form-control" id="field_posto" data-cy="posto" name="posto" formControlName="posto" [compareWith]="comparePosto">
+                @if (!editForm.get(['posto'])!.value) {
+                  <option [ngValue]="null" selected></option>
+                }
+                @for (postoOption of filteredPostos; track $index) {
+                  <option [ngValue]="postoOption">{{ postoOption.descricao }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="field_statusMilitar" jhiTranslate="ecursosApp.militar.statusMilitar">Status Militar</label>
+              <select class="form-control" name="statusMilitar" formControlName="statusMilitar" id="field_statusMilitar" data-cy="statusMilitar">
+                <option [ngValue]="null">{{ 'ecursosApp.StatusMilitarEnum.null' | translate }}</option>
+                @for (statusMilitarEnum of statusMilitarEnumValues; track $index) {
+                  <option [value]="statusMilitarEnum">{{ 'ecursosApp.StatusMilitarEnum.' + statusMilitarEnum | translate }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <!-- Coluna 2 -->
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label" for="field_ultimaPromocao" jhiTranslate="ecursosApp.militar.ultimaPromocao">Última Promoção</label>
+              <div class="input-group">
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  name="ultimaPromocao" 
+                  id="field_ultimaPromocao" 
+                  data-cy="ultimaPromocao" 
+                  ngbDatepicker 
+                  #ultimaPromocaoDp="ngbDatepicker" 
+                  formControlName="ultimaPromocao" 
+                  (input)="formatarData($event)"
+                />
+                <button type="button" class="btn btn-secondary" (click)="ultimaPromocaoDp.toggle()">
+                  <fa-icon icon="calendar-alt"></fa-icon>
+                </button>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="field_nomeCompleto" jhiTranslate="ecursosApp.militar.nomeCompleto">Nome Completo</label>
+              <input type="text" class="form-control" name="nomeCompleto" id="field_nomeCompleto" data-cy="nomeCompleto" formControlName="nomeCompleto" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="field_cpf" jhiTranslate="ecursosApp.militar.cpf">CPF</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                name="cpf" 
+                id="field_cpf" 
+                data-cy="cpf" 
+                formControlName="cpf" 
+                (input)="formatCpf($event)"
+                placeholder="000.000.000-00"
+                maxlength="14"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="field_telefone" jhiTranslate="ecursosApp.militar.telefone">Telefone</label>
+              <input type="text" class="form-control" name="telefone" id="field_telefone" data-cy="telefone" formControlName="telefone" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="field_forca" jhiTranslate="ecursosApp.militar.forca">Força</label>
+              <select class="form-control" name="forca" formControlName="forca" id="field_forca" data-cy="forca" (change)="onForcaChange($event)">
+                <option [ngValue]="null">{{ 'ecursosApp.ForcaEnum.null' | translate }}</option>
+                @for (forcaEnum of forcaEnumValues; track $index) {
+                  <option [value]="forcaEnum">{{ 'ecursosApp.ForcaEnum.' + forcaEnum | translate }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="field_om" jhiTranslate="ecursosApp.militar.om">OM</label>
+              <input type="text" class="form-control" name="om" id="field_om" data-cy="om" formControlName="om" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botões de Ação -->
+      <div class="mt-3 text-center">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

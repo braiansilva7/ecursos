@@ -1,0 +1,222 @@
+body {
+    background: #eff5ff; 
+}
+
+#kc-header, #kc-content {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#kc-header {
+    width: 90%;
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 400;
+    margin-top: 7%;
+    color: rgb(68, 68, 68);
+}
+
+#kc-content {
+    background: white;
+    padding: 40px;
+    padding-top: 10px;
+    border-radius: 3px;
+    box-shadow: 0 5px 6px -3px rgba(0,0,0,.2), 0 9px 12px 1px rgba(0,0,0,.14), 0 3px 16px 2px rgba(0,0,0,.12);
+}
+
+* Estilo para a área da logo, com posicionamento fixo e alinhamento central */
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo .gladio {
+  width: 260px;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+/* Estilo geral para o rodapé */
+.site-footer {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  bottom: 0;
+  padding: 0 20px;
+  border-top: 2px solid white;
+  background-color: #1d52c3;
+  color: #333;
+  opacity: 0.9;
+  font-size: 1.3rem;
+}
+
+/* Estilo para o container de cada par (logo + texto) */
+.site-footer .footer-item {
+  display: flex;
+  align-items: center;
+  margin: 0 15px;
+}
+
+/* Estilo para os logotipos no rodapé */
+.site-footer .footer-logo {
+  height: 30px;
+  margin-right: 5px;
+}
+
+/* Estilo para os textos no rodapé */
+.site-footer .footer-text {
+  color: white;
+  font-weight: 400;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+    #kc-content {
+        width: 90%;
+    }
+}
+
+@media (min-width: 769px) {
+    #kc-content {
+        width: 400px;
+    }
+}
+
+.password-container {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+#kc-login {
+    float: right;
+}
+
+#kc-error-message p {
+    margin: 0;
+}
+
+.checkbox {
+    margin-bottom: 0px;
+}
+
+.remember-me-checkbox label {
+    padding-left: 0px;        
+}
+
+.register .register-field {
+    margin-bottom: 15px;
+}
+
+.register .register-button-container {
+    margin-top: 20px;
+}
+
+.reset-password .reset-password-field {
+    margin-bottom: 15px;
+}
+
+.update-password .update-password-field {
+    margin-bottom: 15px;
+}
+
+.update-password .update-password-button-container {
+    margin-top: 20px;
+}
+
+.config-totp .config-totp-button-container {
+    margin-top: 15px;
+}
+
+.totp .totp-button-container {
+    margin-top: 15px;
+}
+
+.update-profile .update-profile-field {
+    margin-top: 15px;
+}
+
+.update-profile .update-profile-button-container {
+    margin-top: 20px;
+}
+
+.template .language-picker {
+    position: relative;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    width: 160px;
+}
+
+.template .language-picker .form-group {
+    white-space: nowrap;
+
+    /* the below keeps the label in "inline" mode even on narrow screens */
+    display: none;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.template .language-picker .language-picker-dropdown-label i {
+    vertical-align: middle;
+    margin-right: 7px;
+    margin-left: -7px;
+    color: rgb(68, 68, 68);
+}
+
+
+.template .language-picker select.form-control {
+    border-color: rgb(68, 68, 68);
+    background: transparent;
+
+    /* the below keeps the <select> in "inline" mode even on narrow screens */
+    display: none;
+    width: auto;
+    vertical-align: middle;
+}
+
+.title-unico {
+    text-align: center;
+    font-size: 24px;
+    padding: 5px;
+}
+
+.btn-primary {
+    background-color: #0069d9;
+}
+.main-footer {
+    position: absolute;
+    background-color: #1d52c3;
+    margin-left: 0px;
+    bottom: 0px;
+    width: 100%;
+    border-top: 1px solid #dee2e6 !important;
+    padding: 16px !important;
+}
+.main-footer img {
+    padding: 0px;
+}
+
+.logo-clients img {
+    width: 50px;
+}
+
+.main-footer .bottom .container-fluid .row-fluid .mx-auto {
+    line-height: 24px;
+}
+
+.main-footer .bottom .container-fluid .mt-3 {
+    margin-top: 16px;
+}
+
+.logo_ccabr{
+    height: 50px;
+    margin-left: 20px;
+}
+
+.logo_fab{
+    height: 60px;
+}

@@ -1,0 +1,25 @@
+{
+  "ecursosApp": {
+    "tipo": {
+      "home": {
+        "title": "Categoria de Cursos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar nova Categoria",
+        "createOrEditLabel": "Criar ou editar Tipo",
+        "search": "Pesquisar...",
+        "notFound": "Nenhum Tipo encontrado"
+      },
+      "created": "Uma nova categoria foi criada com o identificador {{ param }}",
+      "updated": "Uma nova categoria foi atualizada com o identificador {{ param }}",
+      "deleted": "Uma nova categoria foi excluída com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir a categoria?"
+      },
+      "detail": {
+        "title": "Categoria"
+      },
+      "id": "ID",
+      "categoria": "Categoria"
+    }
+  }
+}

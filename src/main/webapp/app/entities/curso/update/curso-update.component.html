@@ -1,0 +1,94 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-curso-heading" data-cy="CursoCreateUpdateHeading" jhiTranslate="ecursosApp.curso.home.createOrEditLabel">
+        Criar ou editar Curso
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @let cursoNomeRef = editForm.get('cursoNome')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_cursoNome" jhiTranslate="ecursosApp.curso.cursoNome">Curso Nome</label>
+          <input type="text" class="form-control" name="cursoNome" id="field_cursoNome" data-cy="cursoNome" formControlName="cursoNome" />
+          @if (cursoNomeRef.invalid && (cursoNomeRef.dirty || cursoNomeRef.touched)) {
+            <div>
+              @if (editForm.get('cursoNome')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let cursoSiglaRef = editForm.get('cursoSigla')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_cursoSigla" jhiTranslate="ecursosApp.curso.cursoSigla">Curso Sigla</label>
+          <input
+            type="text"
+            class="form-control"
+            name="cursoSigla"
+            id="field_cursoSigla"
+            data-cy="cursoSigla"
+            formControlName="cursoSigla"
+          />
+          @if (cursoSiglaRef.invalid && (cursoSiglaRef.dirty || cursoSiglaRef.touched)) {
+            <div>
+              @if (editForm.get('cursoSigla')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let empresaRef = editForm.get('empresa')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_empresa" jhiTranslate="ecursosApp.curso.empresa">Empresa</label>
+          <input type="text" class="form-control" name="empresa" id="field_empresa" data-cy="empresa" formControlName="empresa" />
+          @if (empresaRef.invalid && (empresaRef.dirty || empresaRef.touched)) {
+            <div>
+              @if (editForm.get('empresa')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_tipo" jhiTranslate="ecursosApp.curso.tipo">Tipo</label>
+          <select class="form-control" id="field_tipo" data-cy="tipo" name="tipo" formControlName="tipo" [compareWith]="compareTipo">
+            @if (!editForm.get('tipo')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (tipoOption of tiposSharedCollection; track $index) {
+              <option [ngValue]="tipoOption">{{ tipoOption.categoria }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['tipo'])!.invalid && (editForm.get(['tipo'])!.dirty || editForm.get(['tipo'])!.touched)) {
+          <div>
+            @if (editForm.get(['tipo'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

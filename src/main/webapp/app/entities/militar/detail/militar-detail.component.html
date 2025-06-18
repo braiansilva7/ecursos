@@ -1,0 +1,109 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8 p-4" style="background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 8px;">
+    @if (militar(); as militarRef) {
+      <div>
+        <h2 class="text-center" data-cy="militarDetailsHeading">
+          <span jhiTranslate="ecursosApp.militar.detail.title">Militar</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+        <jhi-alert></jhi-alert>
+
+        <!-- Foto no topo -->
+        <div class="d-flex justify-content-center mb-4">
+          <img
+            *ngIf="fotoUrl"
+            [src]="fotoUrl"
+            class="img-fluid"
+            alt="Foto do Militar"
+            style="width: 220px; height: 220px; object-fit: cover; border: 2px solid black; border-radius: 8px;"
+          />
+          <img
+            *ngIf="!fotoUrl"
+            src="../../../../content/assets/img/avatar5.png"
+            class="img-fluid"
+            alt="Foto não disponível"
+            style="width: 220px; height: 220px; object-fit: cover; border: 2px solid black; border-radius: 8px;"
+          />
+        </div>
+
+        <!-- Detalhes do militar em pares -->
+        <div class="row">
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.militar.posto">Posto</span></dt> {{ militarRef.posto?.descricao }}
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.militar.nomeGuerra">Nome Guerra</span></dt> {{ militarRef.nomeGuerra }}
+          </div>
+
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.militar.nomeCompleto">Nome Completo</span></dt> {{ militarRef.nomeCompleto }}
+          </div>
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.militar.saram">Saram</span></dt> {{ militarRef.saram }}
+          </div>
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.militar.cpf">cpf</span></dt> {{ formatCpf(militarRef.cpf ?? '') }}
+          </div>
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.militar.email">email</span></dt> {{ militarRef.email }}
+          </div>
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.militar.nrAntiguidade">nrAntiguidade</span></dt> {{ militarRef.nrAntiguidade }}
+          </div>
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.militar.ultimaPromocao">ultimaPromocao</span></dt> {{ militarRef.ultimaPromocao | formatDate}}
+          </div>
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.militar.om">Om</span></dt> {{ militarRef.om }}
+          </div>
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.militar.telefone">Telefone</span></dt> {{ militarRef.telefone }}
+          </div>
+
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.militar.statusMilitar">Status Militar</span></dt> {{
+              {
+                null: '',
+                ATIVA: 'ATIVA',
+                INATIVO: 'INATIVO',
+                TRANSFERIDO: 'TRANSFERIDO',
+              }[militarRef.statusMilitar ?? 'null']
+            }}
+          </div>
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.militar.forca">Forca</span></dt> {{
+              {
+                null: '',
+                MARINHA_DO_BRASIL: 'MARINHA DO BRASIL',
+                EXERCITO_BRASILEIRO: 'EXÉRCITO BRASILEIRO',
+                FORCA_AEREA_BRASILEIRA: 'FORÇA AÉREA BRASILEIRA',
+                POLICIA_MILITAR: 'POLÍCIA MILITAR',
+                CORPO_DE_BOMBEIROS: 'CORPO DE BOMBEIROS',
+                ORGAO_CIVIL_BRASILEIRO: 'ÓRGÃO CIVIL BRASILEIRO',
+                ORGAO_ESTRANGEIRO: 'ÓRGÃO ESTRANGEIRO',
+              }[militarRef.forca ?? 'null']
+            }}
+          </div>
+        </div>
+
+        <!-- Botões -->
+        <div class="mt-4 d-flex justify-content-between">
+          <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+            <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+          </button>
+
+          <button 
+            *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_CCABR_ELO_EXECUTIVO_AVANCADO']"
+            type="button" 
+            [routerLink]="['/militar', militarRef.id, 'edit']" 
+            class="btn btn-primary">
+            <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

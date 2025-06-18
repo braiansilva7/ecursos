@@ -1,0 +1,88 @@
+"id","posto_sigla","descricao","prioridade","orgao","cod_sigpes"
+"1","ALTE","ALMIRANTE","1","1",null
+"2","ALT ESQ","ALMIRANTE DE ESQUADRA","2","1",null
+"3","V ALTE","VICE-ALMIRANTE","3","1",null
+"4","C ALTE","CONTRA-ALMIRANTE","4","1",null
+"5","CMG","CAPITÃO DE MAR E GUERRA","5","1",null
+"6","CF","CAPITÃO DE FRAGATA","6","1",null
+"7","CC","CAPITÃO DE CORVETA","7","1",null
+"8","CT","CAPITÃO-TENENTE","8","1",null
+"9","1T","PRIMEIRO-TENENTE","9","1",null
+"10","2T","SEGUNDO-TENENTE","10","1",null
+"11","GM","GUARDA-MARINHA","11","1",null
+"12","ASP","ASPIRANTE","12","1",null
+"13","SO","SUBOFICIAL","13","1",null
+"14","1º SG","PRIMEIRO-SARGENTO","14","1",null
+"15","2º SG","SEGUNDO-SARGENTO","15","1",null
+"16","3º SG","TERCEIRO-SARGENTO","16","1",null
+"17","CB","CABO","17","1",null
+"18","SD","SOLDADO","18","1",null
+"19","MN","MARINHEIRO","19","1",null
+"20","MAR","MARECHAL","1","2",null
+"21","GEN EX","GENERAL DE EXÉRCITO","2","2",null
+"22","GEN DIV","GENERAL DE DIVISÃO","3","2",null
+"23","GEN BDA","GENERAL DE BRIGADA","4","2",null
+"24","CEL","CORONEL","5","2",null
+"25","TEN CEL","TENENTE-CORONEL","6","2",null
+"26","MAJ","MAJOR","7","2",null
+"27","CAP","CAPITÃO","8","2",null
+"28","1º TEN","PRIMEIRO-TENENTE","9","2",null
+"29","2º TEN","SEGUNDO-TENENTE","10","2",null
+"30","ASP","ASPIRANTE A OFICIAL","11","2",null
+"31","CAD","CADETE","12","2",null
+"32","S TEN","SUBTENENTE","13","2",null
+"33","1º SGT","PRIMEIRO-SARGENTO","14","2",null
+"34","2º SGT","SEGUNDO-SARGENTO","15","2",null
+"35","3º SGT","TERCEIRO-SARGENTO","16","2",null
+"36","CB","CABO","17","2",null
+"37","SD","SOLDADO","18","2",null
+"38","MAR AR","MARECHAL DO AR","1","3","1"
+"39","TEN BRIG AR","TENENTE-BRIGADEIRO DO AR","2","3","2"
+"40","MAJ BRIG","MAJOR-BRIGADEIRO","3","3","3"
+"41","BRIG","BRIGADEIRO","4","3","4"
+"42","CEL","CORONEL","5","3","5"
+"43","TEN CEL","TENENTE-CORONEL","6","3","6"
+"44","MAJ","MAJOR","7","3","7"
+"45","CAP","CAPITÃO","8","3","8"
+"46","1º TEN","PRIMEIRO-TENENTE","9","3","9"
+"47","2º TEN","SEGUNDO-TENENTE","10","3","10"
+"48","ASP","ASPIRANTE A OFICIAL","11","3","11"
+"49","CAD","CADETE","12","3","12"
+"50","SO","SUBOFICIAL","13","3","19"
+"51","1S","PRIMEIRO-SARGENTO","14","3","20"
+"52","2S","SEGUNDO-SARGENTO","15","3","21"
+"53","3S","TERCEIRO-SARGENTO","16","3","22"
+"54","CB","CABO","17","3","25"
+"55","S1","SOLDADO DE PRIMEIRA CLASSE","18","3","26"
+"56","S2","SOLDADO DE SEGUNDA CLASSE","19","3","27"
+"57","TM","TAFEIRO-MOR","17","3","29"
+"58","CEL","CORONEL","5","4",null
+"59","TEN CEL","TENENTE-CORONEL","6","4",null
+"60","MAJ","MAJOR","7","4",null
+"61","CAP","CAPITÃO","8","4",null
+"62","1º TEN","PRIMEIRO-TENENTE","9","4",null
+"63","2º TEN","SEGUNDO-TENENTE","10","4",null
+"64","ASP","ASPIRANTE A OFICIAL","11","4",null
+"65","CAD","CADETE","12","4",null
+"66","S TEN","SUBTENENTE","13","4",null
+"67","1º SGT","PRIMEIRO-SARGENTO","14","4",null
+"68","2º SGT","SEGUNDO-SARGENTO","15","4",null
+"69","3º SGT","TERCEIRO-SARGENTO","16","4",null
+"70","CB","CABO","17","4",null
+"71","SD","SOLDADO","18","4",null
+"72","CEL","CORONEL","5","5",null
+"73","TEN CEL","TENENTE-CORONEL","6","5",null
+"74","MAJ","MAJOR","7","5",null
+"75","CAP","CAPITÃO","8","5",null
+"76","1º TEN","PRIMEIRO-TENENTE","9","5",null
+"77","2º TEN","SEGUNDO-TENENTE","10","5",null
+"78","ASP","ASPIRANTE A OFICIAL","11","5",null
+"79","CAD","CADETE","12","5",null
+"80","S TEN","SUBTENENTE","13","5",null
+"81","1º SGT","PRIMEIRO-SARGENTO","14","5",null
+"82","2º SGT","SEGUNDO-SARGENTO","15","5",null
+"83","3º SGT","TERCEIRO-SARGENTO","16","5",null
+"84","CB","CABO","17","5",null
+"85","SD","SOLDADO","18","5",null
+"86","CV","CIVIL","30","6",null
+"87","CVE","CIVIL ESTRANGEIRO","30","7",null

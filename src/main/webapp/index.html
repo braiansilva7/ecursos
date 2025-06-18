@@ -1,0 +1,156 @@
+<!doctype html>
+<html class="no-js" lang="pt-br" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>ecursos</title>
+    <meta name="description" content="Description for ecursos" />
+    <meta name="google" content="notranslate" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="theme-color" content="#000000" />
+    <base href="/" />
+    <link rel="icon" href="favicon.ico" />
+    <link rel="manifest" href="manifest.webapp" />
+    <link rel="stylesheet" href="content/css/loading.css" />
+    <link rel="stylesheet" href="content/css/overlayscrollbars.css">
+    <link rel="stylesheet" href="content/css/bootstrap-icons.css">
+    <link rel="stylesheet" href="content/css/adminlte.css">
+    <!-- jhipster-needle-add-resources-to-root - JHipster will add new resources here -->
+  </head>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <jhi-app>
+      <div class="app-loading">
+        <div class="lds-pacman"></div>
+      </div>
+    </jhi-app>
+    <script type="text/javascript">
+        // show an error message if the app loading takes more than 4 sec
+        window.onload = function () {
+          setTimeout(showError, 4000);
+        };
+        function showError() {
+          var errorElm = document.getElementById('jhipster-error');
+          if (errorElm?.style) {
+            errorElm.style.display = 'block';
+          }
+        }
+      </script>
+    <script src="content/js/overlayscrollbars-browser.js"></script>
+    <script src="content/js/propper.js"></script>
+    <script src="content/js/bootstrap.js"></script>
+    <script>
+        const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper";
+        const Default = {
+            scrollbarTheme: "os-theme-light",
+            scrollbarAutoHide: "leave",
+            scrollbarClickScroll: true,
+        };
+        document.addEventListener("DOMContentLoaded", function() {
+            const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
+            if (
+                sidebarWrapper &&
+                typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== "undefined"
+            ) {
+                OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+                    scrollbars: {
+                        theme: Default.scrollbarTheme,
+                        autoHide: Default.scrollbarAutoHide,
+                        clickScroll: Default.scrollbarClickScroll,
+                    },
+                });
+            }
+        });
+    </script>
+    <script src="content/js/sortable.js"></script> 
+      <script>
+        // Color Mode Toggler
+        (() => {
+            "use strict";
+    
+            const storedTheme = localStorage.getItem("theme");
+    
+            const getPreferredTheme = () => {
+                if (storedTheme) {
+                    return storedTheme;
+                }
+    
+                return window.matchMedia("(prefers-color-scheme: dark)").matches ?
+                    "dark" :
+                    "light";
+            };
+    
+            const setTheme = function(theme) {
+                if (
+                    theme === "auto" &&
+                    window.matchMedia("(prefers-color-scheme: dark)").matches
+                ) {
+                    document.documentElement.setAttribute("data-bs-theme", "dark");
+                } else {
+                    document.documentElement.setAttribute("data-bs-theme", theme);
+                }
+            };
+    
+            setTheme(getPreferredTheme());
+    
+            const showActiveTheme = (theme, focus = false) => {
+                const themeSwitcher = document.querySelector("#bd-theme");
+    
+                if (!themeSwitcher) {
+                    return;
+                }
+    
+                const themeSwitcherText = document.querySelector("#bd-theme-text");
+                const activeThemeIcon = document.querySelector(
+                    ".theme-icon-active i"
+                );
+                const btnToActive = document.querySelector(
+                    `[data-bs-theme-value="${theme}"]`
+                );
+                const svgOfActiveBtn = btnToActive
+                    .querySelector("i")
+                    .getAttribute("class");
+    
+                for (const element of document.querySelectorAll(
+                        "[data-bs-theme-value]"
+                    )) {
+                    element.classList.remove("active");
+                    element.setAttribute("aria-pressed", "false");
+                }
+    
+                btnToActive.classList.add("active");
+                btnToActive.setAttribute("aria-pressed", "true");
+                activeThemeIcon.setAttribute("class", svgOfActiveBtn);
+                const themeSwitcherLabel = `${themeSwitcherText.textContent} (${btnToActive.dataset.bsThemeValue})`;
+                themeSwitcher.setAttribute("aria-label", themeSwitcherLabel);
+    
+                if (focus) {
+                    themeSwitcher.focus();
+                }
+            };
+    
+            window
+                .matchMedia("(prefers-color-scheme: dark)")
+                .addEventListener("change", () => {
+                    if (storedTheme !== "light" || storedTheme !== "dark") {
+                        setTheme(getPreferredTheme());
+                    }
+                });
+    
+            window.addEventListener("DOMContentLoaded", () => {
+                showActiveTheme(getPreferredTheme());
+    
+                for (const toggle of document.querySelectorAll(
+                        "[data-bs-theme-value]"
+                    )) {
+                    toggle.addEventListener("click", () => {
+                        const theme = toggle.getAttribute("data-bs-theme-value");
+                        localStorage.setItem("theme", theme);
+                        setTheme(theme);
+                        showActiveTheme(theme, true);
+                    });
+                }
+            });
+        })();
+    </script> <!--end::Script-->
+  </body>
+</html>

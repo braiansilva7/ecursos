@@ -1,0 +1,19 @@
+{
+  "ecursosApp": {
+    "dashboard": {
+      "home": {
+        "title": "Dashboard"
+      },
+      "inicio_capacitacao": "Near the Start of the Training",
+      "militar": "Military CCA-BR and CDCAER",
+      "matriculado": "Enrolled Military",
+      "listar": "List",
+      "ativo": "Military Courses in Progress",
+      "finalizado": "Military Approved Courses",
+      "reprovado": "Disapproved",
+      "indicado": "Military Courses Indicated",
+      "concluido": "Military Courses Completed",
+      "msg_capacitacao": "Sem informações disponíveis."
+    }
+  }
+}

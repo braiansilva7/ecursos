@@ -1,0 +1,220 @@
+<div>
+  <h2 id="page-heading" data-cy="TurmaHeading">
+    <span jhiTranslate="ecursosApp.turma.home.title">Turmas</span>
+
+    <div class="d-flex justify-content-end">
+      <!-- <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="ecursosApp.turma.home.refreshListLabel">Atualizar lista</span>
+      </button> -->
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-turma"
+        [routerLink]="['/turma/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span class="hidden-sm-down" jhiTranslate="ecursosApp.turma.home.createLabel">Criar novo Turma</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <form name="searchForm" class="row row-cols-sm-auto align-items-center">
+    <div class="col-sm-12">
+      <div class="input-group w-100 mt-3">
+        <label class="visually-hidden" for="currentSearch" jhiTranslate="ecursosApp.turma.home.search">Pesquisar por Turma</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="currentSearch"
+          id="currentSearch"
+          name="currentSearch"
+          placeholder="{{ 'ecursosApp.turma.home.search' | translate }}"
+        />
+
+        <button class="btn btn-info" (click)="search(currentSearch)">
+          <fa-icon icon="search"></fa-icon>
+        </button>
+
+        @if (currentSearch) {
+          <button class="btn btn-danger" (click)="search('')">
+            <fa-icon icon="trash-alt"></fa-icon>
+          </button>
+        }
+      </div>
+    </div>
+  </form>
+
+  <jhi-filter [filters]="filters"></jhi-filter>
+
+  @if (turmas?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="ecursosApp.turma.home.notFound">Nenhum Turma encontrado</span>
+    </div>
+  }
+
+  @if (turmas && turmas.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <!-- <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th> -->
+            <th scope="col" jhiSortBy="inicio">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.turma.inicio">Inicio</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="termino">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.turma.termino">Termino</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="ano">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.turma.ano">Ano</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="statusCurso">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.turma.statusCurso">Status Curso</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="modalidade">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.turma.modalidade">Modalidade</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="qtdVagas">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.turma.qtdVagas">Qtd Vagas</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="numeroBca">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.turma.numeroBca">Numero Bca</span>
+                @if (!currentSearch) {
+                  <fa-icon class="p-1" icon="sort"></fa-icon>
+                }
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="curso.cursoNome">
+              <div class="d-flex">
+                <span jhiTranslate="ecursosApp.turma.curso">Curso</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let turma of turmas; trackBy: trackId" data-cy="entityTable">
+            <!-- <td>
+              <a [routerLink]="['/turma', turma.id, 'view']">{{ turma.id }}</a>
+            </td> -->
+            <td>{{ getFormattedDate(turma.inicio) }}</td>
+            <td>{{ getFormattedDate(turma.termino) }}</td>
+            <td>{{ turma.ano }}</td>
+            <td [jhiTranslate]="'ecursosApp.StatusCursoEnum.' + (turma.statusCurso ?? 'null')">
+              {{
+                {
+                  null: '',
+                  AGUARDANDO_APROVACAO: 'AGUARDANDO_APROVACAO',
+                  AGUARDANDO_BCA_APROVACAO: 'AGUARDANDO_BCA_APROVACAO',
+                  CANCELADO: 'CANCELADO',
+                  CONCLUIDO: 'CONCLUIDO',
+                  EM_ANDAMENTO: 'EM_ANDAMENTO',
+                  INDICACAO_NAO_APROVADA_PELA_ORGANIZACAO_DO_CURSO: 'INDICACAO_NAO_APROVADA_PELA_ORGANIZACAO_DO_CURSO',
+                  INDICACAO_QUANDO_CHEGAR_APROVACAO: 'INDICACAO_QUANDO_CHEGAR_APROVACAO',
+                  INDICACAO: 'INDICACAO',
+                  APROVADO: 'APROVADO',
+                }[turma.statusCurso ?? 'null']
+              }}
+            </td>
+            <td [jhiTranslate]="'ecursosApp.ModalidadeEnum.' + (turma.modalidade ?? 'null')">
+              {{ { null: '', PRESENCIAL: 'PRESENCIAL', ONLINE: 'ONLINE', EAD: 'EAD' }[turma.modalidade ?? 'null'] }}
+            </td>
+            <td>{{ turma.qtdVagas }}</td>
+            <td>{{ turma.numeroBca }}</td>
+            <td>
+              <div *ngIf="turma.curso">
+                <a [routerLink]="['/curso', turma.curso.id, 'view']">{{ turma.curso.cursoNome }}</a>
+              </div>
+            </td>
+            <td class="text-end">
+              <div class="btn-group">
+                <a [routerLink]="['/turma', turma.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                  <fa-icon icon="eye"></fa-icon>
+                </a>
+        
+                <a [routerLink]="['/turma', turma.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                </a>
+
+                <a class="btn btn-dark btn-sm" (click)="openModal(turma)">
+                  <fa-icon icon="plus"></fa-icon>
+                </a>
+
+                <!-- Modal -->
+                <jhi-custom-modal
+                  *ngIf="isModalOpen"
+                  [data]="selectedTurma"
+                  (modalClose)="onModalClose($event)"
+                ></jhi-custom-modal>
+        
+                <button type="submit" (click)="delete(turma)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>        
+      </table>
+    </div>
+  }
+  @if (turmas && turmas.length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,212 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-capacitacao-heading"
+        data-cy="CapacitacaoCreateUpdateHeading"
+        jhiTranslate="ecursosApp.capacitacao.home.createOrEditLabel"
+      >
+        Criar ou editar Capacitacao
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <!-- @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="ecursosApp.capacitacao.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        } -->
+
+        @let capacitacaoStatusRef = editForm.get('capacitacaoStatus')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_capacitacaoStatus" jhiTranslate="ecursosApp.capacitacao.capacitacaoStatus"
+            >Capacitacao Status</label
+          >
+          <select
+            class="form-control"
+            name="capacitacaoStatus"
+            formControlName="capacitacaoStatus"
+            id="field_capacitacaoStatus"
+            data-cy="capacitacaoStatus"
+          >
+            <option [ngValue]="null">{{ 'ecursosApp.StatusEnum.null' | translate }}</option>
+            @for (statusEnum of statusEnumValues; track $index) {
+              <option [value]="statusEnum">{{ 'ecursosApp.StatusEnum.' + statusEnum | translate }}</option>
+            }
+          </select>
+          @if (capacitacaoStatusRef.invalid && (capacitacaoStatusRef.dirty || capacitacaoStatusRef.touched)) {
+            <div>
+              @if (editForm.get('capacitacaoStatus')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+           <label class="form-label" for="field_sigpes" jhiTranslate="ecursosApp.capacitacao.sigpes">Sigpes</label>
+           <input 
+              type="text" 
+              class="form-control" 
+              name="sigpes" 
+              id="field_sigpes" 
+              data-cy="sigpes" 
+              formControlName="sigpes" 
+            />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_militar" jhiTranslate="ecursosApp.capacitacao.militar">Militar</label>
+          <ng-select
+            class="form-control"
+            id="field_militar"
+            data-cy="militar"
+            name="militar"
+            [items]="militarsSharedCollection"
+            bindLabel="nomeCompleto"
+            [searchable]="true"
+            [clearable]="true"
+            [compareWith]="compareMilitar"
+            formControlName="militar"
+            [(ngModel)]="selectedMilitar"
+            (change)="onMilitarChange()"
+            appendTo="body"
+          >
+            <ng-template ng-option-tmp let-item="item">
+              <span>{{ item.posto?.postoSigla }} - {{ item.nomeCompleto }}</span>
+            </ng-template>
+          </ng-select>
+        </div>
+        
+        <div class="mb-3 p-2" style="background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 8px;" *ngIf="selectedMilitar">
+          <!-- Coluna para a Foto -->
+          <div class="row">
+            <div class="col-md-3">
+              <img
+                [src]="fotoUrl || '../../../../content/assets/img/avatar5.png'"
+                alt="Foto do Militar"
+                class="img-fluid"
+                style="width: 120px; height: 120px; border: 2px solid black; border-radius: 8px;"
+              />
+            </div>
+          
+            <!-- Coluna para os Dados -->
+            <div class="col-md-9">
+              <dl class="row">
+                <div class="col-md-6">
+                  <dt><span jhiTranslate="ecursosApp.militar.saram">Saram</span></dt>
+                  {{ selectedMilitar.saram }}
+                </div>
+                <div class="col-md-6">
+                  <dt><span jhiTranslate="ecursosApp.militar.nomeCompleto">Nome Completo</span></dt>
+                  {{ selectedMilitar.nomeCompleto }}
+                </div>
+                <div class="col-md-6">
+                  <dt><span jhiTranslate="ecursosApp.militar.posto">Posto Sigla</span></dt>
+                  {{ selectedMilitar.posto.postoSigla }}
+                </div>
+                <div class="col-md-6">
+                  <dt><span jhiTranslate="ecursosApp.militar.nomeGuerra">Nome de Guerra</span></dt>
+                  {{ selectedMilitar.nomeGuerra }}
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>        
+
+        <div class="mb-3">
+          <label class="form-label" for="field_curso" jhiTranslate="ecursosApp.turma.curso">Curso</label>
+          <ng-select
+              class="form-control"
+              id="field_turma"
+              data-cy="turma"
+              name="turma"
+              [items]="turmasSharedCollection"
+              bindLabel="curso.cursoNome"
+              [searchable]="true"
+              [clearable]="true"
+              [compareWith]="compareTurma"
+              formControlName="turma"
+              [(ngModel)]="selectedTurma"
+              (change)="onTurmaChange()"
+              appendTo="body"
+            >
+              <ng-template ng-option-tmp let-item="item">
+                <span>{{ item.curso?.cursoNome }} - {{ item.ano }}</span>
+              </ng-template>
+          </ng-select>
+        </div>
+        @if (editForm.get(['turma'])!.invalid && (editForm.get(['turma'])!.dirty || editForm.get(['turma'])!.touched)) {
+          <div>
+            @if (editForm.get(['turma'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="mb-3 p-2" style="background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 8px;" *ngIf="selectedTurma">
+        <dl class="row">
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.turma.qtdVagasTurma">Quantidade de Vagas</span></dt>
+            {{ selectedTurma.qtdVagas }}
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.turma.qtdVagasDisponiveis">Vagas Disponíveis</span></dt>
+            <span *ngIf="availableSeats !== null; else noSeats">
+              {{ availableSeats }}
+            </span>          
+            <ng-template #noSeats>
+              <strong class="text-danger" jhiTranslate="ecursosApp.turma.semVagasDisponiveis">Sem vagas disponíveis</strong>
+            </ng-template>
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.turma.inicio">Inicio</span></dt>
+            {{ getFormattedDate(selectedTurma.inicio) }}
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.turma.termino">Termino</span></dt>
+            {{ getFormattedDate(selectedTurma.termino) }}
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.turma.ano">Ano</span></dt>
+            {{ selectedTurma.ano }}
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.turma.modalidade">Modalidade</span></dt>
+            {{ selectedTurma.modalidade }}
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.turma.numeroBca">numeroBca</span></dt>
+            {{ selectedTurma.numeroBca || 'N/A' }}
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.turma.statusCurso">Status Curso</span></dt>
+            {{ getFormattedStatus(selectedTurma.statusCurso) }}
+          </div>
+        </dl>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving || (
+            (isNew || turmaChanged) &&
+            availableSeats === null
+          )"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

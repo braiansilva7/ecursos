@@ -1,0 +1,19 @@
+{
+  "ecursosApp": {
+    "dashboard": {
+      "home": {
+        "title": "Dashboard"
+      },
+      "inicio_capacitacao": "Próximo ao Início da Capacitação",
+      "militar": "Militares CCA-BR e CDCAER",
+      "matriculado": "Militares Matriculados",
+      "listar": "Listar",
+      "ativo": "Militares Cursos em Andamento",
+      "finalizado": "Militares Cursos Aprovados",
+      "indicado": "Militares Cursos Indicados",
+      "concluido": "Militares Cursos Concluídos",
+      "reprovado": "Militares Cursos Reprovados",
+      "msg_capacitacao": "Sem informações disponíveis."
+    }
+  }
+}

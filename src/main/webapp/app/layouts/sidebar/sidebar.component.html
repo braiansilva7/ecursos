@@ -1,0 +1,88 @@
+<div class="sidebar-brand"> <!--begin::Brand Link--> 
+    <a routerLink="/" class="brand-link"> <!--begin::Brand Image--> 
+        <img src="/content/images/ecurso.png" class="brand-image opacity-75 shadow">
+    </a>
+</div>
+<div class="sidebar-wrapper">
+    <nav class="mt-2"> <!--begin::Sidebar Menu-->
+        @if (account() !== null) {
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+                <li class="nav-item">
+                    <div class="d-flex align-items-center">
+                      <!-- Foto -->
+                      <img
+                        *ngIf="fotoUrl"
+                        [src]="fotoUrl"
+                        class="img-fluid"
+                        alt="Foto do Militar"
+                        style="width: 48px; height: 48px; object-fit: cover; border: 2px solid white; border-radius: 50%; margin-right: 10px;"
+                      />
+                      <img
+                        *ngIf="!fotoUrl"
+                        src="../../../../content/assets/img/avatar5.png"
+                        class="img-fluid"
+                        alt="Foto não disponível"
+                        style="width: 48px; height: 48px; object-fit: cover; border: 2px solid white; border-radius: 50%; margin-right: 10px;"
+                      />
+                      
+                      <!-- Texto -->
+                      <div class="d-flex flex-column">
+                        @let accountRef = account();
+                        <span class="text-white small">Bem-vindo,</span>
+                        <span class="fw-bold text-white user-info-sidebar">{{ accountRef?.displayname ?? accountRef?.login }}</span>
+                      </div>
+                    </div>
+                </li>
+                <br/><br/>
+                <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_CCABR_ELO_EXECUTIVO_AVANCADO']"
+                    class="nav-item">
+                    <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" class="nav-link active"> <i class="nav-icon bi bi-speedometer"></i>
+                        <span jhiTranslate="global.menu.entities.dashboard"> Dashboard</span>
+                    </a> 
+                </li>
+
+                <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_CCABR_ELO_EXECUTIVO_AVANCADO']"
+                    class="nav-item">
+                    <a routerLink="/posto" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" class="nav-link"> <i class="nav-icon bi bi-postcard"></i>
+                        <span jhiTranslate="global.menu.entities.posto"> Posto</span>
+                    </a> 
+                </li>
+
+                <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_CCABR_ELO_EXECUTIVO_AVANCADO']"
+                    class="nav-item">
+                    <a routerLink="/militar" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" class="nav-link"> <i class="nav-icon bi bi-person-vcard-fill"></i>
+                        <span jhiTranslate="global.menu.entities.militar"> Militar</span>
+                    </a> 
+                </li>
+
+                <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_CCABR_ELO_EXECUTIVO_AVANCADO']"
+                    class="nav-item">
+                    <a routerLink="/tipo" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" class="nav-link"> <i class="nav-icon bi bi-braces-asterisk"></i>
+                        <span jhiTranslate="global.menu.entities.tipo"> Tipo</span>
+                    </a> 
+                </li>
+
+                <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_CCABR_ELO_EXECUTIVO_AVANCADO']"
+                    class="nav-item">
+                    <a routerLink="/curso" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" class="nav-link"> <i class="nav-icon bi bi-clipboard2-plus"></i>
+                        <span jhiTranslate="global.menu.entities.curso"> Curso</span>
+                    </a> 
+                </li>
+
+                <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_CCABR_ELO_EXECUTIVO_AVANCADO']"
+                    class="nav-item">
+                    <a routerLink="/turma" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" class="nav-link"> <i class="nav-icon bi bi-book"></i>
+                        <span jhiTranslate="global.menu.entities.turma"> Turma</span>
+                    </a> 
+                </li>
+
+                <li class="nav-item">
+                    <a routerLink="/capacitacao" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()" class="nav-link"> <i class="nav-icon bi bi-award"></i>
+                        <span jhiTranslate="global.menu.entities.capacitacao"> Capacitação</span>
+                    </a> 
+               </li>
+                
+        </ul> <!--end::Sidebar Menu-->
+    }
+    </nav>
+</div> <!--end::Sidebar Wrapper-->

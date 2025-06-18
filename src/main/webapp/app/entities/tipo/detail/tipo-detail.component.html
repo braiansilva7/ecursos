@@ -1,0 +1,37 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8 p-4" style="background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 8px;">
+    @if (tipo(); as tipoRef) {
+      <div>
+        <h2 class="text-center" data-cy="tipoDetailsHeading">
+          <span jhiTranslate="ecursosApp.tipo.detail.title">Tipo</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <div class="row">
+            <div class="col-md-12">
+              <dt><span jhiTranslate="ecursosApp.tipo.categoria">Categoria</span></dt>
+              <dd>
+                <span>{{ tipoRef.categoria }}</span>
+              </dd>
+            </div>
+          </div>
+        </dl>
+
+        <div class="mt-4 d-flex justify-content-between">
+          <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+            <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+          </button>
+
+          <button type="button" [routerLink]="['/tipo', tipoRef.id, 'edit']" class="btn btn-primary">
+            <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

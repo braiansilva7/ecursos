@@ -1,0 +1,21 @@
+{
+  "annotations": {
+    "changelogDate": "20240919184814"
+  },
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "categoria",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Tipo",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass",
+  "skipClient": true,
+  "skipServer": true
+}

@@ -1,0 +1,178 @@
+<div class="app-content-header"> <!--begin::Container-->
+    <div class="container-fluid"> <!--begin::Row-->
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 class="mb-0">Dashboard</h3>
+            </div>
+        </div> <!--end::Row-->
+    </div> <!--end::Container-->
+</div> <!--end::App Content Header--> <!--begin::App Content-->
+<div class="app-content"> <!--begin::Container-->
+    <div class="container-fluid"> <!--begin::Row-->
+        <div class="row"> <!--begin::Col-->
+            <div class="col-lg-2 col-md-4 col-6"> <!--begin::Small Box Widget 1-->
+                <div class="small-box text-bg-primary">
+                    <div class="inner">
+                        <h3>{{ totalMatriculado }}</h3>
+                        <p jhiTranslate="ecursosApp.dashboard.matriculado">Militares Matriculados</p>
+                    </div>
+                    <a 
+                        [routerLink]="['/capacitacao']"
+                        [queryParams]="{ status: 'MATRICULADO' }"
+                        routerLinkActive="active" 
+                        [routerLinkActiveOptions]="{ exact: true }" 
+                        class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover" 
+                        jhiTranslate="ecursosApp.dashboard.listar"
+                    > 
+                        Listar<i class="bi bi-link-45deg"></i>   
+                    </a> 
+                </div> <!--end::Small Box Widget 1-->
+            </div> <!--end::Col-->
+            <div class="col-lg-2 col-md-4 col-6"> <!--begin::Small Box Widget 3-->
+                <div class="small-box text-bg-secondary text-light">
+                    <div class="inner">
+                        <h3>{{ totalIndicado }}</h3>
+                        <p jhiTranslate="ecursosApp.dashboard.indicado">Cursos Indicado</p>
+                    </div>
+                    <a
+                        [routerLink]="['/capacitacao']"
+                        [queryParams]="{ status: 'INDICADO' }"
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover"
+                        jhiTranslate="ecursosApp.dashboard.listar"
+                        >
+                        Listar<i class="bi bi-link-45deg"></i>
+                    </a>
+                </div> <!--end::Small Box Widget 3-->
+            </div> <!--end::Col-->
+            <div class="col-lg-2 col-md-4 col-6"> <!--begin::Small Box Widget 2-->
+                <div class="small-box text-bg-success text-light">
+                    <div class="inner">
+                        <h3>{{ totalEmAndamento }}</h3>
+                        <p jhiTranslate="ecursosApp.dashboard.ativo">Militares Cursos Ativos</p>
+                    </div>
+                    <a
+                        [routerLink]="['/capacitacao']"
+                        [queryParams]="{ status: 'EM_ANDAMENTO' }"
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover"
+                        jhiTranslate="ecursosApp.dashboard.listar"
+                        >
+                        Listar<i class="bi bi-link-45deg"></i>
+                    </a> 
+                </div> <!--end::Small Box Widget 2-->
+            </div> <!--end::Col-->
+            <div class="col-lg-2 col-md-4 col-6"> <!--begin::Small Box Widget 3-->
+                <div class="small-box custom-bg text-light">
+                    <div class="inner">
+                        <h3>{{ totalConcluido }}</h3>
+                        <p jhiTranslate="ecursosApp.dashboard.concluido">Cursos Concluido</p>
+                    </div>
+                    <a
+                        [routerLink]="['/capacitacao']"
+                        [queryParams]="{ status: 'CONCLUIDO' }"
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover"
+                        jhiTranslate="ecursosApp.dashboard.listar"
+                        >
+                        Listar<i class="bi bi-link-45deg"></i>
+                    </a>
+                </div> <!--end::Small Box Widget 3-->
+            </div> <!--end::Col-->
+            <div class="col-lg-2 col-md-4 col-6"> <!--begin::Small Box Widget 3-->
+                <div class="small-box text-bg-warning text-light">
+                    <div class="inner">
+                        <h3>{{ totalAprovado }}</h3>
+                        <p jhiTranslate="ecursosApp.dashboard.finalizado">Cursos Finalizados</p>
+                    </div>
+                    <a
+                        [routerLink]="['/capacitacao']"
+                        [queryParams]="{ status: 'APROVADO' }"
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover"
+                        jhiTranslate="ecursosApp.dashboard.listar"
+                        >
+                        Listar<i class="bi bi-link-45deg"></i>
+                    </a>
+                </div> <!--end::Small Box Widget 3-->
+            </div> <!--end::Col-->
+            <div class="col-lg-2 col-md-4 col-6"> <!--begin::Small Box Widget 4-->
+                <div class="small-box text-bg-danger text-light">
+                    <div class="inner">
+                        <h3>{{ totalReprovado }}</h3>
+                        <p jhiTranslate="ecursosApp.dashboard.reprovado">Militares Reprovados</p>
+                    </div>
+                    <a
+                        [routerLink]="['/capacitacao']"
+                        [queryParams]="{ status: 'REPROVADO' }"
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover"
+                        jhiTranslate="ecursosApp.dashboard.listar"
+                        >
+                        Listar<i class="bi bi-link-45deg"></i>
+                    </a>
+                </div> <!--end::Small Box Widget 4-->
+            </div> <!--end::Col-->
+        </div> <!--end::Row--> <!--begin::Row-->
+
+        <br/>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card todo-list-container">
+                <div class="card-header">
+                <h3 class="card-title">
+                    <i class="ion ion-clipboard mr-1" jhiTranslate="ecursosApp.dashboard.inicio_capacitacao">Próximo ao Início da Capacitação </i>
+                </h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <ul class="todo-list" data-widget="todo-list">
+                        <li *ngFor="let capacitacao of capacitacaoSharedCollection">
+                          <span class="text">
+                            <a 
+                                [routerLink]="['/capacitacao']" 
+                                [queryParams]="{ status: capacitacao.turma?.id }"
+                                routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"
+                                class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover"
+                                *ngIf="capacitacao.militar?.nomeGuerra"
+                            >
+                                {{ capacitacao.turma?.curso?.cursoNome ?? 'N/A' }}
+                            </a> - 
+                                {{ capacitacao.turma?.ano ?? 'N/A' }}
+                          </span>
+                          <small class="badge" [ngClass]="capacitacao.badgeClass ?? 'badge-secondary'">
+                            <i class="far fa-clock"></i> 
+                            {{ formatDate(capacitacao.turma?.inicio) }}
+                        </small>
+                          <div class="tools">
+                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-trash-o"></i>
+                          </div>
+                        </li>
+                      </ul>
+                      <p *ngIf="!capacitacaoSharedCollection || capacitacaoSharedCollection.length === 0" class="text-center text-muted">
+                        <span jhiTranslate="ecursosApp.dashboard.msg_capacitacao">Sem informações disponíveis.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div style="width: 450px; height: 450px; display: flex; justify-content: center; align-items: center; margin: auto;">
+                <canvas baseChart
+                        [data]="pieChartData"
+                        [labels]="pieChartLabels"
+                        [options]="pieChartOptions"
+                        [type]="pieChartType">
+                </canvas>
+            </div>
+        </div>
+    </div>
+</div> <!--end::App Content-->

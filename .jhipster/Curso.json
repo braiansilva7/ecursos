@@ -1,0 +1,40 @@
+{
+  "annotations": {
+    "changelogDate": "20240919185037"
+  },
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "cursoNome",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "cursoSigla",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "empresa",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Curso",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "categoria",
+      "otherEntityName": "tipo",
+      "relationshipName": "tipo",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"]
+    }
+  ],
+  "service": "serviceClass",
+  "skipClient": true,
+  "skipServer": true
+}

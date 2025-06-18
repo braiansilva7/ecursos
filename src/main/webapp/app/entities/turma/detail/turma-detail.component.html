@@ -1,0 +1,105 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8 p-4" style="background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 8px;">
+    @if (turma(); as turmaRef) {
+      <div>
+        <h2 class="text-center" data-cy="turmaDetailsHeading">
+          <span jhiTranslate="ecursosApp.turma.detail.title">Turma</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+        <jhi-alert></jhi-alert>
+
+        <dl class="row">
+          <!-- Primeira linha: Início e Término -->
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.turma.inicio">Inicio</span></dt>
+            <dd>
+              <span>{{ turmaRef.inicio | formatDate }}</span>
+            </dd>
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.turma.termino">Termino</span></dt>
+            <dd>
+              <span>{{ turmaRef.termino | formatDate }}</span>
+            </dd>
+          </div>
+
+          <!-- Segunda linha: Ano e Status Curso -->
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.turma.ano">Ano</span></dt>
+            <dd>
+              <span>{{ turmaRef.ano }}</span>
+            </dd>
+          </div>
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.turma.statusCurso">Status Curso</span></dt>
+            <dd>
+              <span [jhiTranslate]="'ecursosApp.StatusCursoEnum.' + (turmaRef.statusCurso ?? 'null')">{{
+                {
+                  null: '',
+                  AGUARDANDO_APROVACAO: 'AGUARDANDO_APROVACAO',
+                  AGUARDANDO_BCA_APROVACAO: 'AGUARDANDO_BCA_APROVACAO',
+                  CANCELADO: 'CANCELADO',
+                  CONCLUIDO: 'CONCLUIDO',
+                  EM_ANDAMENTO: 'EM_ANDAMENTO',
+                  INDICACAO_NAO_APROVADA_PELA_ORGANIZACAO_DO_CURSO: 'INDICACAO_NAO_APROVADA_PELA_ORGANIZACAO_DO_CURSO',
+                  INDICACAO_QUANDO_CHEGAR_APROVACAO: 'INDICACAO_QUANDO_CHEGAR_APROVACAO',
+                  INDICACAO: 'INDICACAO',
+                  APROVADO: 'APROVADO',
+                }[turmaRef.statusCurso ?? 'null']
+              }}</span>
+            </dd>
+          </div>
+
+          <!-- Terceira linha: Modalidade e Qtd Vagas -->
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.turma.modalidade">Modalidade</span></dt>
+            <dd>
+              <span [jhiTranslate]="'ecursosApp.ModalidadeEnum.' + (turmaRef.modalidade ?? 'null')">{{
+                { null: '', PRESENCIAL: 'PRESENCIAL', ONLINE: 'ONLINE', EAD: 'EAD' }[turmaRef.modalidade ?? 'null']
+              }}</span>
+            </dd>
+          </div>
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.turma.qtdVagas">Qtd Vagas</span></dt>
+            <dd>
+              <span>{{ turmaRef.qtdVagas }}</span>
+            </dd>
+          </div>
+
+          <!-- Quarta linha: Número BCA e Curso -->
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.turma.numeroBca">Numero Bca</span></dt>
+            <dd>
+              <span>{{ turmaRef.numeroBca }}</span>
+            </dd>
+          </div>
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.turma.curso">Curso</span></dt>
+            <dd>
+              @if (turma()!.curso) {
+                <a [routerLink]="['/curso', turma()!.curso?.id, 'view']">{{ turmaRef.curso?.cursoNome }}</a>
+              }
+            </dd>
+          </div>
+        </dl>
+
+        <div class="mt-4 d-flex justify-content-between">
+          <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+            <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+          </button>
+
+          <button 
+            *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_CCABR_ELO_EXECUTIVO_AVANCADO']"
+            type="button" 
+            [routerLink]="['/turma', turmaRef.id, 'edit']" 
+            class="btn btn-primary">
+            <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

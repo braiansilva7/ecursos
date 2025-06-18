@@ -1,0 +1,40 @@
+{
+  "annotations": {
+    "changelogDate": "20240919185856"
+  },
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "capacitacaoStatus",
+      "fieldType": "StatusEnum",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "CONCLUIDO,APROVADO,REPROVADO,EM_ANDAMENTO,INDICADO,INDICACAO_NAO_APROVADA_PELA_ORGANIZACAO_DO_CURSO,MATRICULADO,NAO_APROVADO_PELA_DTI_COMGAP"
+    },
+    {
+      "fieldName": "sigpes",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Capacitacao",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "nomeCompleto",
+      "otherEntityName": "militar",
+      "relationshipName": "militar",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "turma",
+      "relationshipName": "turma",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"]
+    }
+  ],
+  "service": "serviceClass"
+}

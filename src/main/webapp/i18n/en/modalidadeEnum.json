@@ -1,0 +1,10 @@
+{
+  "ecursosApp": {
+    "ModalidadeEnum": {
+      "null": "",
+      "PRESENCIAL": "IN PERSON",
+      "ONLINE": "ONLINE",
+      "EAD": "EAD"
+    }
+  }
+}

@@ -1,0 +1,708 @@
+@import 'bootstrap-variables';
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+
+/* ==============================================================
+Bootstrap tweaks
+===============================================================*/
+
+body,
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 300;
+}
+
+/* Increase contrast of links to get 100% on Lighthouse Accessibility Audit. Override this color if you want to change the link color, or use a Bootswatch theme */
+a {
+  color: #533f03;
+  font-weight: bold;
+}
+
+/* override hover color for dropdown-item forced by bootstrap to all a:not([href]):not([tabindex]) elements in _reboot.scss */
+a:not([href]):not([tabindex]):hover.dropdown-item {
+  color: $dropdown-link-hover-color;
+}
+
+/* override .dropdown-item.active background-color on hover */
+.dropdown-item.active:hover {
+  background-color: mix($dropdown-link-hover-bg, $dropdown-link-active-bg, 50%);
+}
+
+a:hover {
+  color: #533f03;
+  /* make sure browsers use the pointer cursor for anchors, even with no href */
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  color: $dropdown-link-hover-color;
+}
+
+/* ==========================================================================
+Browser Upgrade Prompt
+========================================================================== */
+.browserupgrade {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+/* ==========================================================================
+Generic styles
+========================================================================== */
+
+/* Error highlight on input fields */
+.ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid green;
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid red;
+}
+
+/* other generic styles */
+
+.jh-card {
+  padding: 1.5%;
+  margin-top: 20px;
+  border: none;
+}
+
+.error {
+  color: white;
+  background-color: red;
+}
+
+.pad {
+  padding: 10px;
+}
+
+.w-40 {
+  width: 40% !important;
+}
+
+.w-60 {
+  width: 60% !important;
+}
+
+.break {
+  white-space: normal;
+  word-break: break-all;
+}
+
+.form-control {
+  background-color: #fff;
+}
+
+.readonly {
+  background-color: #eee;
+  opacity: 1;
+}
+
+.footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.hand,
+[jhisortby] {
+  cursor: pointer;
+}
+
+/* ==========================================================================
+Custom alerts for notification
+========================================================================== */
+.alerts {
+  .alert {
+    text-overflow: ellipsis;
+    pre {
+      background: none;
+      border: none;
+      font: inherit;
+      color: inherit;
+      padding: 0;
+      margin: 0;
+    }
+    .popover pre {
+      font-size: 10px;
+    }
+  }
+  .jhi-toast {
+    position: fixed;
+    width: 100%;
+    &.left {
+      left: 5px;
+    }
+    &.right {
+      right: 5px;
+    }
+    &.top {
+      top: 55px;
+    }
+    &.bottom {
+      bottom: 55px;
+    }
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .alerts .jhi-toast {
+    width: 50%;
+  }
+}
+
+/* ==========================================================================
+entity list page css
+========================================================================== */
+
+.table-entities thead th .d-flex > * {
+  margin: auto 0;
+}
+
+/* ==========================================================================
+entity detail page css
+========================================================================== */
+.row-md.jh-entity-details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 10px;
+  line-height: 1.5;
+}
+
+
+@media screen and (min-width: 768px) {
+  .row-md.jh-entity-details > {
+    dt {
+      float: left;
+      overflow: hidden;
+      clear: left;
+      text-align: right;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 0.5em 0;
+    }
+    dd {
+      border-bottom: 1px solid #eee;
+      padding: 0.5em 0;
+      margin-left: 0;
+    }
+  }
+}
+
+/* ==========================================================================
+ui bootstrap tweaks
+========================================================================== */
+.nav,
+.pagination,
+.carousel,
+.panel-title a {
+  cursor: pointer;
+}
+
+.thread-dump-modal-lock {
+  max-width: 450px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-menu {
+  padding-left: 0px;
+}
+
+/* ==========================================================================
+angular-cli removes postcss-rtl processed inline css, processed rules must be added here instead
+========================================================================== */
+/* page-ribbon.component.scss */
+.ribbon {
+  left: -3.5em;
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+/* navbar.component.scss */
+.navbar {
+  ul.navbar-nav {
+    .nav-item {
+      margin-left: 0.5em;
+    }
+  }
+}
+/* jhipster-needle-scss-add-main JHipster will add new css style */
+
+input[readonly],
+input[readonly]:focus {
+  background-color: #eee;
+}
+
+nav.bg-primary-subtle,
+aside.bg-primary-subtle {
+  background-color: #003054 !important;
+}
+
+footer.app-footer {
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 9px 16px;
+  min-height: 20px;
+  background-color: #fafafa;
+}
+
+/* Estilo geral para o rodapé */
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  width: 100%;
+  height: 30px;
+  bottom: 0;
+  padding: 0 15px;
+  color: #333;
+  font-size: 1.0rem;
+}
+
+.sidebar-login{
+  font-size: 0.8rem;
+  color: white;
+}
+
+/* Estilo para o container de cada par (logo + texto) */
+.site-footer .footer-item {
+  display: flex;
+  align-items: center;
+  margin: 0 15px;
+}
+
+/* Estilo para os logotipos no rodapé */
+.site-footer .footer-logo {
+  height: 30px;
+  margin-right: 5px;
+}
+
+.sidebar-footer{
+  bottom: 7px;
+  clear: both;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  display: block;
+  padding: 5px 0 0;
+  position: fixed;
+  width: 230px;
+  color: white;
+  z-index: 999;
+}
+
+.user-avatar {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border: 2px solid white;
+  border-radius: 8px;
+}
+
+.user-info-sidebar {
+  font-size: 0.8rem;
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espaço entre a imagem e o texto */
+}
+
+@mixin border-radius($radius) {
+  border-radius: $radius;
+}
+
+.todo-list {
+  max-height: calc(1.5em * 12 + 10px); /* Altura baseada em 7 linhas com espaçamento */
+  overflow-y: auto; /* Ativa o scroll vertical */
+  overflow-x: hidden; /* Evita o scroll horizontal */
+  border: 1px solid #ccc; /* Opcional: borda para delimitar a área */
+  padding: 5px; /* Espaçamento interno */
+  margin: 0;
+  list-style: none;
+
+  // Todo list element
+  > li {
+    @include border-radius(2px);
+    background: $gray-100;
+    border-left: 2px solid $gray-200;
+    color: $gray-700;
+    margin-bottom: 2px;
+    padding: 10px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    > input[type='checkbox'] {
+      margin: 0 10px 0 5px;
+    }
+
+    .text {
+      display: inline-block;
+      font-weight: 600;
+      margin-left: 5px;
+    }
+
+    // Time labels
+    .badge {
+      font-size: .7rem;
+      margin-left: 10px;
+    }
+
+    // Tools and options box
+    .tools {
+      color: theme-color('danger');
+      display: none;
+      float: right;
+
+      // icons
+      > .fa,
+      > .fas,
+      > .far,
+      > .fab,
+      > .glyphicon,
+      > .ion {
+        cursor: pointer;
+        margin-right: 5px;
+      }
+    }
+
+    &:hover .tools {
+      display: inline-block;
+    }
+
+    &.done {
+      color: darken($gray-500, 25%);
+
+      .text {
+        font-weight: 500;
+        text-decoration: line-through;
+      }
+
+      .badge {
+        background: $gray-500 !important;
+      }
+    }
+  }
+
+  // Color variants
+  @each $name, $color in $theme-colors {
+    .#{$name} {
+      border-left-color: $color;
+    }
+  }
+
+  @each $name, $color in $colors {
+    .#{$name} {
+      border-left-color: $color;
+    }
+  }
+
+  .handle {
+    cursor: move;
+    display: inline-block;
+    margin: 0 5px;
+  }
+}
+
+/* Responsividade para dispositivos com largura máxima de 768px: define a largura do conteúdo como 90% */
+@media (max-width: 768px) {
+  #kc-content {
+    width: 90%;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    height: 90px;
+    gap: 10px;
+  }
+}
+
+.todo-list {
+  list-style: none;
+  margin: 0;
+  overflow: auto;
+  padding: 0;
+}
+
+.todo-list > li {
+  border-radius: 2px;
+  background: #f8f9fa;
+  border-left: 2px solid #e9ecef;
+  color: #495057;
+  margin-bottom: 2px;
+  padding: 10px;
+}
+
+.todo-list > li:last-of-type {
+  margin-bottom: 0;
+}
+
+.todo-list > li > input[type='checkbox'] {
+  margin: 0 10px 0 5px;
+}
+
+.todo-list > li .text {
+  display: inline-block;
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.todo-list > li .badge {
+  font-size: .7rem;
+  margin-left: 10px;
+}
+
+.todo-list > li .tools {
+  color: #dc3545;
+  display: none;
+  float: right;
+}
+
+.todo-list > li .tools > .fa,
+.todo-list > li .tools > .fas,
+.todo-list > li .tools > .far,
+.todo-list > li .tools > .fab,
+.todo-list > li .tools > .glyphicon,
+.todo-list > li .tools > .ion {
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.todo-list > li:hover .tools {
+  display: inline-block;
+}
+
+.todo-list > li.done {
+  color: #697582;
+}
+
+.todo-list > li.done .text {
+  font-weight: 500;
+  text-decoration: line-through;
+}
+
+.todo-list > li.done .badge {
+  background: #adb5bd !important;
+}
+
+.todo-list .primary {
+  border-left-color: #007bff;
+}
+
+.todo-list .secondary {
+  border-left-color: #6c757d;
+}
+
+.todo-list .success {
+  border-left-color: #28a745;
+}
+
+.todo-list .info {
+  border-left-color: #17a2b8;
+}
+
+.todo-list .warning {
+  border-left-color: #ffc107;
+}
+
+.todo-list .danger {
+  border-left-color: #dc3545;
+}
+
+.todo-list .light {
+  border-left-color: #f8f9fa;
+}
+
+.todo-list .dark {
+  border-left-color: #343a40;
+}
+
+.todo-list .navy {
+  border-left-color: #001f3f;
+}
+
+.todo-list .olive {
+  border-left-color: #3d9970;
+}
+
+.todo-list .lime {
+  border-left-color: #01ff70;
+}
+
+.todo-list .fuchsia {
+  border-left-color: #f012be;
+}
+
+.todo-list .maroon {
+  border-left-color: #d81b60;
+}
+
+.todo-list .blue {
+  border-left-color: #007bff;
+}
+
+.todo-list .indigo {
+  border-left-color: #6610f2;
+}
+
+.todo-list .purple {
+  border-left-color: #6f42c1;
+}
+
+.todo-list .pink {
+  border-left-color: #e83e8c;
+}
+
+.todo-list .red {
+  border-left-color: #dc3545;
+}
+
+.todo-list .orange {
+  border-left-color: #fd7e14;
+}
+
+.todo-list .yellow {
+  border-left-color: #ffc107;
+}
+
+.todo-list .green {
+  border-left-color: #28a745;
+}
+
+.todo-list .teal {
+  border-left-color: #20c997;
+}
+
+.todo-list .cyan {
+  border-left-color: #17a2b8;
+}
+
+.todo-list .white {
+  border-left-color: #ffffff;
+}
+
+.todo-list .gray {
+  border-left-color: #6c757d;
+}
+
+.todo-list .gray-dark {
+  border-left-color: #343a40;
+}
+
+.todo-list .handle {
+  cursor: move;
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.badge-info {
+  color: #ffffff;
+  background-color: #17a2b8;
+}
+
+a.badge-info:hover, a.badge-info:focus {
+  color: #ffffff;
+  background-color: #117a8b;
+}
+
+a.badge-info:focus, a.badge-info.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);
+}
+
+.badge-warning {
+  color: #1F2D3D;
+  background-color: #ffc107;
+}
+
+a.badge-warning:hover, a.badge-warning:focus {
+  color: #1F2D3D;
+  background-color: #d39e00;
+}
+
+a.badge-warning:focus, a.badge-warning.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);
+}
+
+.badge-danger {
+  color: #ffffff;
+  background-color: #dc3545;
+}
+
+a.badge-danger:hover, a.badge-danger:focus {
+  color: #ffffff;
+  background-color: #bd2130;
+}
+
+a.badge-danger:focus, a.badge-danger.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+}
+
+.badge-light {
+  color: #1F2D3D;
+  background-color: #f8f9fa;
+}
+
+a.badge-light:hover, a.badge-light:focus {
+  color: #1F2D3D;
+  background-color: #dae0e5;
+}
+
+a.badge-light:focus, a.badge-light.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(248, 249, 250, 0.5);
+}
+
+.badge-dark {
+  color: #ffffff;
+  background-color: #343a40;
+}
+
+a.badge-dark:hover, a.badge-dark:focus {
+  color: #ffffff;
+  background-color: #1d2124;
+}
+
+a.badge-dark:focus, a.badge-dark.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.5);
+}
+
+nav.bg-primary-subtle{
+  background-color: #1d52c3 !important;
+}
+
+aside.bg-primary-subtle{
+  background-color: #003054 !important;
+}
+
+
+/* Estilo para a To-Do List */
+.todo-list-container {
+  flex: 1; /* Ocupa o espaço disponível */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.sidebar-wrapper .sidebar-menu>.nav-item.menu-open .nav-link.active:not(:hover){
+  --lte-sidebar-menu-active-bg: inherit;
+}
+
+.sidebar-wrapper .sidebar-menu>.nav-item.menu-open>.nav-link{
+  background-color: inherit;
+}

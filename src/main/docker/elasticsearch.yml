@@ -1,0 +1,50 @@
+# This configuration is intended for development purpose, it's **your** responsibility to harden it for production
+name: ecursos
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.4
+    # volumes:
+    #   - ~/volumes/jhipster/ecursos/elasticsearch/:/usr/share/elasticsearch/data/
+    # If you want to expose these ports outside your dev PC,
+    # remove the "127.0.0.1:" prefix
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - 'ES_JAVA_OPTS=-Xms4g -Xmx4g'  # Aumentando a memória para 4GB
+      - 'discovery.type=single-node'  # Descomente esta linha se você ainda quer rodar como nó único.
+      - 'xpack.security.enabled=false'
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://elasticsearch:9200/_cluster/health?wait_for_status=green&timeout=10s']
+      interval: 25s
+      timeout: 30s
+      retries: 10
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.10.4
+    ports:
+      - 5601:5601
+    environment:
+      - 'ELASTICSEARCH_HOSTS=http://elasticsearch:9200'
+      - 'SERVER_MAX_RETRY_TIMEOUT=120000'  # Timeout de 120 segundos
+    depends_on:
+      - elasticsearch
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://kibana:5601/api/status']
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.10.4
+    ports:
+      - 5066:5066
+    environment:
+      - 'ELASTICSEARCH_HOSTS=http://elasticsearch:9200'
+    depends_on:
+      - elasticsearch
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://filebeat:5066']
+      interval: 10s
+      timeout: 5s
+      retries: 3

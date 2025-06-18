@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8 p-4" style="background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 8px;">
+    @if (curso(); as cursoRef) {
+      <div>
+        <h2 class="text-center" data-cy="cursoDetailsHeading">
+          <span jhiTranslate="ecursosApp.curso.detail.title">Curso</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+        <jhi-alert></jhi-alert>
+
+        <dl class="row">
+          <!-- Primeira linha: Nome do Curso e Sigla -->
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.curso.cursoNome">Curso Nome</span></dt>
+            <dd>
+              <span>{{ cursoRef.cursoNome }}</span>
+            </dd>
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.curso.cursoSigla">Curso Sigla</span></dt>
+            <dd>
+              <span>{{ cursoRef.cursoSigla }}</span>
+            </dd>
+          </div>
+
+          <!-- Segunda linha: Tipo e Empresa -->
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.curso.tipo">Tipo</span></dt>
+            <dd>
+              @if (curso()!.tipo) {
+                <span>{{ cursoRef.tipo?.categoria }}</span>
+              }
+            </dd>
+          </div>
+          <div class="col-md-6 mt-3">
+            <dt><span jhiTranslate="ecursosApp.curso.empresa">Empresa</span></dt>
+            <dd>
+              <span>{{ cursoRef.empresa }}</span>
+            </dd>
+          </div>
+        </dl>
+
+        <div class="mt-4 d-flex justify-content-between">
+          <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+            <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+          </button>
+
+          <button 
+            *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_CCABR_ELO_EXECUTIVO_AVANCADO']"
+            type="button" 
+            [routerLink]="['/curso', cursoRef.id, 'edit']" 
+            class="btn btn-primary">
+            <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

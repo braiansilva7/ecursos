@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8 p-4" style="background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 8px;">
+    @if (posto(); as postoRef) {
+      <div>
+        <h2 class="text-center" data-cy="postoDetailsHeading">
+          <span jhiTranslate="ecursosApp.posto.detail.title">Posto</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+        <jhi-alert></jhi-alert>
+
+        <dl class="row">
+          <!-- Código -->
+          <!-- <div class="col-md-6">
+            <dt><span jhiTranslate="global.field.id">Código</span></dt>
+            <dd>{{ postoRef.id }}</dd>
+          </div> -->
+
+          <!-- Posto Sigla e Descrição -->
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.posto.postoSigla">Posto Sigla</span></dt>
+            <dd>{{ postoRef.postoSigla }}</dd>
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.posto.descricao">Descrição</span></dt>
+            <dd>{{ postoRef.descricao }}</dd>
+          </div>
+
+          <!-- Prioridade e Órgão -->
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.posto.prioridade">Prioridade</span></dt>
+            <dd>{{ postoRef.prioridade }}</dd>
+          </div>
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.posto.orgao">Órgão</span></dt>
+            <dd>{{ postoRef.orgao }}</dd>
+          </div>
+
+          <!-- Código Sigpes -->
+          <div class="col-md-6">
+            <dt><span jhiTranslate="ecursosApp.posto.codSigpes">Código Sigpes</span></dt>
+            <dd>{{ postoRef.codSigpes }}</dd>
+          </div>
+        </dl>
+
+        <div class="d-flex justify-content-between mt-4">
+          <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+            <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+          </button>
+
+          <button type="button" [routerLink]="['/posto', postoRef.id, 'edit']" class="btn btn-primary">
+            <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,115 @@
+<div class="modal-container d-flex justify-content-center align-items-center">
+
+    <div class="modal-content" style="background-color: white; border-radius: 0.3rem; padding: 1.5rem; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); width: 80%; max-width: 800px; height: 70%; max-height: 90%; overflow-y: auto;">    
+        <div class="modal-header d-flex justify-content-center align-items-center">
+            <jhi-alert-error></jhi-alert-error>
+            <jhi-alert></jhi-alert>
+        </div>
+        <div class="modal-header d-flex justify-content-center align-items-center">
+            <h3 style="font-weight: bold; text-align: center;">Adicionar Capacitações</h3>
+            <button 
+              class="btn-close" 
+              style="
+                position: absolute; 
+                right: 10px; 
+                top: 10px; 
+                border: none; 
+                background: none; 
+                font-size: 1.5rem; 
+                cursor: pointer;" 
+              (click)="closeModal()">
+              &times;
+            </button>
+        </div>
+
+        <div class="modal-body" style="padding: 1rem;">
+            <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+                <div class="mb-3">
+                    <div id="nomeTurma" style="text-align: left;">
+                        <label for="nomeTurma" class="form-label" style="font-weight: bold;">Nome da Turma:</label>
+                        {{ data.curso.cursoNome }}
+                    </div>
+                    <div id="ano" style="text-align: left;">
+                        <label for="ano" class="form-label" style="font-weight: bold;">Ano:</label>
+                        {{ data.ano }}
+                    </div>
+                    <div id="vagas" style="text-align: left;">
+                        <label for="vagas" class="form-label" style="font-weight: bold;">Quantidade de Vagas:</label>
+                        {{ data.qtdVagas }}
+                    </div>
+                    <div id="vagas" style="text-align: left;">
+                        <label for="vagas" class="form-label" style="font-weight: bold;">Vagas Disponíveis:</label>
+                        {{ availableSeats }}
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div id="statusCapacitacao" style="text-align: left;">
+                        <label for="statusCapacitacao" class="form-label" style="font-weight: bold;">Status da Capacitação</label>
+                    </div>
+                    
+                    <select
+                    class="form-control"
+                    name="capacitacaoStatus"
+                    formControlName="capacitacaoStatus"
+                    id="field_capacitacaoStatus"
+                    data-cy="capacitacaoStatus"
+                    (change)="updateStatusEnum($event)"
+                    >
+                    <option [ngValue]="null" selected>Selecione um status</option>
+                    @for (statusEnum of statusEnumValues; track $index) {
+                        <option [value]="statusEnum">{{ 'ecursosApp.StatusEnum.' + statusEnum | translate }}</option>
+                    }
+                    </select>   
+                </div>
+                <div class="mb-3">
+                    <div id="militares" style="text-align: left;">
+                        <label for="militares" class="form-label" style="font-weight: bold;">Militares</label>
+                    </div>
+                    <ng-select
+                        id="field_militar"
+                        data-cy="militar"
+                        name="militar"
+                        [items]="militarsSharedCollection"
+                        [maxSelectedItems]="availableSeats"
+                        [multiple]="true"
+                        [searchable]="true"
+                        [clearable]="true"
+                        [compareWith]="compareMilitar"
+                        bindLabel="nomeCompleto"
+                        formControlName="militar"
+                        [(ngModel)]="selectedMilitares"
+                        (change)="updateMilitarCount($event)"
+                        appendTo="body"
+                        >
+                        <ng-template ng-option-tmp let-item="item">
+                            <span>{{ item.posto?.postoSigla }} - {{ item.nomeCompleto }}</span>
+                        </ng-template>
+                    </ng-select>
+                </div>
+
+                <div style="margin-top: 0.5rem; text-align: left;">
+                    <small>
+                        <strong style="font-weight: bold;">Total selecionado:</strong> {{ militarSelectedCount }} militar(es)
+                    </small>
+                </div>
+                
+                <div class="modal-footer d-flex justify-content-end gap-2">
+                    <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="closeModal()">
+                        <span jhiTranslate="entity.action.cancel">Cancelar</span>
+                        </button>
+                    <button
+                        type="submit"
+                        id="save-entity"
+                        data-cy="entityCreateSaveButton"
+                        class="btn btn-primary"
+                        [disabled]="!selectStatus || militarSelectedCount === 0 || isSaving"
+                        [class.loading]="isSaving">
+                        <span>Salvar</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+  </div>
+
+</div>

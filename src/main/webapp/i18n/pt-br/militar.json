@@ -1,0 +1,37 @@
+{
+  "ecursosApp": {
+    "militar": {
+      "home": {
+        "title": "Militares",
+        "refreshListLabel": "Atualizar lista",
+        "syncListLabel": "Sincronizar militares",
+        "createLabel": "Criar novo Militar",
+        "createOrEditLabel": "Criar ou editar Militar",
+        "search": "Pesquisar...",
+        "notFound": "Nenhum Militar encontrado"
+      },
+      "created": "Um novo Militar foi criado com o identificador {{ param }}",
+      "updated": "Um Militar foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Militar foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir o Militar: {{ id }}?"
+      },
+      "detail": {
+        "title": "Militares"
+      },
+      "id": "ID",
+      "saram": "Saram",
+      "nomeCompleto": "Nome Completo",
+      "nomeGuerra": "N.Guerra",
+      "om": "OM",
+      "telefone": "Telefone",
+      "statusMilitar": "Status",
+      "forca": "Força",
+      "posto": "Posto",
+      "nrAntiguidade": "Nr. Antiguidade",
+      "ultimaPromocao": "Última Promoção",
+      "cpf": "CPF",
+      "email": "E-mail"
+    }
+  }
+}

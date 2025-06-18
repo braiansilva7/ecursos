@@ -1,0 +1,35 @@
+{
+  "ecursosApp": {
+    "turma": {
+      "home": {
+        "title": "Turmas",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Turma",
+        "createOrEditLabel": "Create or edit a Turma",
+        "search": "Search for Turma",
+        "notFound": "No Turmas found"
+      },
+      "created": "A new Turma is created with identifier {{ param }}",
+      "updated": "A Turma is updated with identifier {{ param }}",
+      "deleted": "A Turma is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Turma {{ id }}?"
+      },
+      "detail": {
+        "title": "Turma"
+      },
+      "id": "ID",
+      "qtdVagasTurma": "Number of Vacancies",
+      "qtdVagasDisponiveis": "Available Vacancies",
+      "semVagasDisponiveis": "No Available Vacancies",
+      "inicio": "Stard",
+      "termino": "Finish",
+      "ano": "Year",
+      "statusCurso": "Status Curso",
+      "modalidade": "Modality",
+      "qtdVagas": "Number of Vacancies",
+      "numeroBca": "Number BCA",
+      "curso": "Course"
+    }
+  }
+}

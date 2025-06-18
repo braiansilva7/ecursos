@@ -1,0 +1,77 @@
+{
+  "annotations": {
+    "changelogDate": "20240919184653"
+  },
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "saram",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "nomeCompleto",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nomeGuerra",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "om",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "telefone",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "statusMilitar",
+      "fieldType": "StatusMilitarEnum",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ATIVA,INATIVO,TRANSFERIDO"
+    },
+    {
+      "fieldName": "forca",
+      "fieldType": "ForcaEnum",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "MARINHA_DO_BRASIL,EXERCITO_BRASILEIRO,FORCA_AEREA_BRASILEIRA,POLICIA_MILITAR,CORPO_DE_BOMBEIROS,ORGAO_CIVIL_BRASILEIRO,ORGAO_ESTRANGEIRO"
+    },
+    {
+      "fieldName": "nrAntiguidade",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ultimaPromocao",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "cpf",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Militar",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "descricao",
+      "otherEntityName": "posto",
+      "relationshipName": "posto",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"]
+    }
+  ],
+  "service": "serviceClass",
+  "skipClient": true,
+  "skipServer": true
+}

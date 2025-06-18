@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-tipo-heading" data-cy="TipoCreateUpdateHeading" jhiTranslate="ecursosApp.tipo.home.createOrEditLabel">
+        Criar ou editar Tipo
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @let categoriaRef = editForm.get('categoria')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_categoria" jhiTranslate="ecursosApp.tipo.categoria">Categoria</label>
+          <input type="text" class="form-control" name="categoria" id="field_categoria" data-cy="categoria" formControlName="categoria" />
+          @if (categoriaRef.invalid && (categoriaRef.dirty || categoriaRef.touched)) {
+            <div>
+              @if (editForm.get('categoria')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

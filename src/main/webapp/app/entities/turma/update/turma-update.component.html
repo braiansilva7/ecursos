@@ -1,0 +1,143 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-turma-heading" data-cy="TurmaCreateUpdateHeading" jhiTranslate="ecursosApp.turma.home.createOrEditLabel">
+        Criar ou editar Turma
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_curso" jhiTranslate="ecursosApp.turma.curso">Curso</label>
+          <ng-select
+            class="form-control"
+            id="field_curso"
+            data-cy="curso"
+            name="curso"
+            [items]="cursosSharedCollection"
+            bindLabel="cursoNome"
+            [searchable]="true"
+            [clearable]="true"
+            [compareWith]="compareCurso"
+            formControlName="curso"
+            (change)="onCursoChange()"
+            appendTo="body"
+          >
+            <ng-template ng-option-tmp let-item="item">
+              <span>{{ item.cursoNome }}</span>
+            </ng-template>
+          </ng-select>
+        </div>
+        @if (editForm.get(['curso'])!.invalid && (editForm.get(['curso'])!.dirty || editForm.get(['curso'])!.touched)) {
+          <div>
+            @if (editForm.get(['curso'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_inicio" jhiTranslate="ecursosApp.turma.inicio">Inicio</label>
+          <div class="input-group">
+            <input
+              id="field_inicio"
+              data-cy="inicio"
+              type="text"
+              class="form-control"
+              name="inicio"
+              ngbDatepicker
+              #inicioDp="ngbDatepicker"
+              formControlName="inicio"
+            />
+            <button type="button" class="btn btn-secondary" (click)="inicioDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_termino" jhiTranslate="ecursosApp.turma.termino">Termino</label>
+          <div class="input-group">
+            <input
+              id="field_termino"
+              data-cy="termino"
+              type="text"
+              class="form-control"
+              name="termino"
+              ngbDatepicker
+              #terminoDp="ngbDatepicker"
+              formControlName="termino"
+            />
+            <button type="button" class="btn btn-secondary" (click)="terminoDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_ano" jhiTranslate="ecursosApp.turma.ano">Ano</label>
+          <input type="number" class="form-control" name="ano" id="field_ano" data-cy="ano" formControlName="ano" />
+        </div>
+
+        @let statusCursoRef = editForm.get('statusCurso')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_statusCurso" jhiTranslate="ecursosApp.turma.statusCurso">Status Curso</label>
+          <select class="form-control" name="statusCurso" formControlName="statusCurso" id="field_statusCurso" data-cy="statusCurso">
+            <option [ngValue]="null">{{ 'ecursosApp.StatusCursoEnum.null' | translate }}</option>
+            @for (statusCursoEnum of statusCursoEnumValues; track $index) {
+              <option [value]="statusCursoEnum">{{ 'ecursosApp.StatusCursoEnum.' + statusCursoEnum | translate }}</option>
+            }
+          </select>
+          @if (statusCursoRef.invalid && (statusCursoRef.dirty || statusCursoRef.touched)) {
+            <div>
+              @if (editForm.get('statusCurso')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let modalidadeRef = editForm.get('modalidade')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_modalidade" jhiTranslate="ecursosApp.turma.modalidade">Modalidade</label>
+          <select class="form-control" name="modalidade" formControlName="modalidade" id="field_modalidade" data-cy="modalidade">
+            <option [ngValue]="null">{{ 'ecursosApp.ModalidadeEnum.null' | translate }}</option>
+            @for (modalidadeEnum of modalidadeEnumValues; track $index) {
+              <option [value]="modalidadeEnum">{{ 'ecursosApp.ModalidadeEnum.' + modalidadeEnum | translate }}</option>
+            }
+          </select>
+          @if (modalidadeRef.invalid && (modalidadeRef.dirty || modalidadeRef.touched)) {
+            <div>
+              @if (editForm.get('modalidade')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_qtdVagas" jhiTranslate="ecursosApp.turma.qtdVagas">Qtd Vagas</label>
+          <input type="text" class="form-control" name="qtdVagas" id="field_qtdVagas" data-cy="qtdVagas" formControlName="qtdVagas" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_numeroBca" jhiTranslate="ecursosApp.turma.numeroBca">Numero Bca</label>
+          <input type="text" class="form-control" name="numeroBca" id="field_numeroBca" data-cy="numeroBca" formControlName="numeroBca" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

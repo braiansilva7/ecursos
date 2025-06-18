@@ -1,0 +1,109 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-posto-heading" data-cy="PostoCreateUpdateHeading" jhiTranslate="ecursosApp.posto.home.createOrEditLabel">
+        Criar ou editar Posto
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @let postoSiglaRef = editForm.get('postoSigla')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_postoSigla" jhiTranslate="ecursosApp.posto.postoSigla">Posto Sigla</label>
+          <input
+            type="text"
+            class="form-control"
+            name="postoSigla"
+            id="field_postoSigla"
+            data-cy="postoSigla"
+            formControlName="postoSigla"
+          />
+          @if (postoSiglaRef.invalid && (postoSiglaRef.dirty || postoSiglaRef.touched)) {
+            <div>
+              @if (editForm.get('postoSigla')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let descricaoRef = editForm.get('descricao')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_descricao" jhiTranslate="ecursosApp.posto.descricao">Descricao</label>
+          <input type="text" class="form-control" name="descricao" id="field_descricao" data-cy="descricao" formControlName="descricao" />
+          @if (descricaoRef.invalid && (descricaoRef.dirty || descricaoRef.touched)) {
+            <div>
+              @if (editForm.get('descricao')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let prioridadeRef = editForm.get('prioridade')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_prioridade" jhiTranslate="ecursosApp.posto.prioridade">Prioridade</label>
+          <input
+            type="number"
+            class="form-control"
+            name="prioridade"
+            id="field_prioridade"
+            data-cy="prioridade"
+            formControlName="prioridade"
+          />
+          @if (prioridadeRef.invalid && (prioridadeRef.dirty || prioridadeRef.touched)) {
+            <div>
+              @if (editForm.get('prioridade')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('prioridade')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let orgaoRef = editForm.get('orgao')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_orgao" jhiTranslate="ecursosApp.posto.orgao">Orgao</label>
+          <input type="number" class="form-control" name="orgao" id="field_orgao" data-cy="orgao" formControlName="orgao" />
+          @if (orgaoRef.invalid && (orgaoRef.dirty || orgaoRef.touched)) {
+            <div>
+              @if (editForm.get('orgao')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('orgao')?.errors?.number" jhiTranslate="entity.validation.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_codSigpes" jhiTranslate="ecursosApp.posto.codSigpes">Cod Sigpes</label>
+          <input type="number" class="form-control" name="codSigpes" id="field_codSigpes" data-cy="codSigpes" formControlName="codSigpes" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+{
+  "ecursosApp": {
+    "militar": {
+      "home": {
+        "title": "Military Personnel",
+        "refreshListLabel": "Refresh list",
+        "syncListLabel": "Synchronize military",
+        "createLabel": "Create a new Military Personnel",
+        "createOrEditLabel": "Create or edit a Military Personnel",
+        "search": "Search...",
+        "notFound": "No Military Personnel found"
+      },
+        "created": "A new Military Personnel is created with identifier {{ param }}",
+        "updated": "A Military Personnel is updated with identifier {{ param }}",
+        "deleted": "A Military Personnel is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Military Personnel: {{ id }}?"
+      },
+      "detail": {
+        "title": "Military Personnel"
+      },
+      "id": "ID",
+      "saram": "Saram",
+        "nomeCompleto": "Name",
+        "nomeGuerra": "Call Sign",
+        "om": "Military Organization",
+        "telefone": "Phone Number",
+        "statusMilitar": "Status",
+        "forca": "Military Branch",
+        "posto": "Military Rank",
+        "nrAntiguidade": "Number of Antiquity",
+        "ultimaPromocao": "Final Promotion",
+        "cpf": "CPF",
+        "email": "E-mail"
+    }
+  }
+}

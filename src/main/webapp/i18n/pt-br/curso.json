@@ -1,0 +1,28 @@
+{
+  "ecursosApp": {
+    "curso": {
+      "home": {
+        "title": "Cursos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Curso",
+        "createOrEditLabel": "Criar ou editar Curso",
+        "search": "Pesquisar...",
+        "notFound": "Nenhum Curso encontrado"
+      },
+      "created": "Um novo Curso foi criado com o identificador {{ param }}",
+      "updated": "Um Curso foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Curso foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir o Curso?"
+      },
+      "detail": {
+        "title": "Curso"
+      },
+      "id": "ID",
+      "cursoNome": "Nome do Curso",
+      "cursoSigla": "Sigla",
+      "empresa": "Empresa",
+      "tipo": "Tipo"
+    }
+  }
+}

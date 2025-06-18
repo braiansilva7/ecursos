@@ -1,0 +1,15 @@
+version: '3.8' # Versão do Docker Compose
+name: ecursos
+services:
+  minio:
+    image: quay.io/minio/minio
+    container_name: minio
+    ports:
+      - '9000:9000' # Porta para a interface web
+      - '9001:9001' # Porta para o console
+    volumes:
+      - ~/minio/data:/data
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: Password01
+    command: server /data --console-address ":9001"

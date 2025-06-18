@@ -1,0 +1,29 @@
+{
+  "ecursosApp": {
+    "posto": {
+      "home": {
+        "title": "Postos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Posto",
+        "createOrEditLabel": "Criar ou editar Posto",
+        "search": "Pesquisar...",
+        "notFound": "Nenhum Posto encontrado"
+      },
+      "created": "Um novo Posto foi criado com o identificador {{ param }}",
+      "updated": "Um Posto foi atualizado com o identificador {{ param }}",
+      "deleted": "Um Posto foi excluído com o identificador {{ param }}",
+      "delete": {
+        "question": "Tem certeza de que deseja excluir o Posto?"
+      },
+      "detail": {
+        "title": "Posto"
+      },
+      "id": "ID",
+      "postoSigla": "Posto Sigla",
+      "descricao": "Descrição",
+      "prioridade": "Prioridade",
+      "orgao": "Órgão",
+      "codSigpes": "Código Sigpes"
+    }
+  }
+}
