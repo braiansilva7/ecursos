@@ -340,13 +340,13 @@ export class CapacitacaoComponent implements OnInit {
     const f = this.advancedFilters;
     this.filteredCapacitacaos = this.allCapacitacaos.filter(c => {
       return (
-        (!f.nomeGuerra || c.militar?.nomeGuerra?.toLowerCase().includes(f.nomeGuerra.toLowerCase())) &&
-        (!f.posto || c.militar?.posto?.postoSigla?.toLowerCase().includes(f.posto.toLowerCase())) &&
-        (!f.om || c.militar?.om?.toLowerCase().includes(f.om.toLowerCase())) &&
-        (!f.cursoSigla || c.turma?.curso?.cursoSigla?.toLowerCase().includes(f.cursoSigla.toLowerCase())) &&
-        (!f.categoria || c.turma?.curso?.tipo?.categoria?.toLowerCase().includes(f.categoria.toLowerCase())) &&
+        (!f.nomeGuerra || (c.militar?.nomeGuerra && c.militar.nomeGuerra.toLowerCase().includes(f.nomeGuerra.toLowerCase()))) &&
+        (!f.posto || (c.militar?.posto?.postoSigla && c.militar.posto.postoSigla.toLowerCase().includes(f.posto.toLowerCase()))) &&
+        (!f.om || (c.militar?.om && c.militar.om.toLowerCase().includes(f.om.toLowerCase()))) &&
+        (!f.cursoSigla || (c.turma?.curso?.cursoSigla && c.turma.curso.cursoSigla.toLowerCase().includes(f.cursoSigla.toLowerCase()))) &&
+        (!f.categoria || (c.turma?.curso?.tipo?.categoria && c.turma.curso.tipo.categoria.toLowerCase().includes(f.categoria.toLowerCase()))) &&
         (!f.ano || String(c.turma?.ano ?? '').includes(f.ano)) &&
-        (!f.turma || c.turma?.curso?.cursoNome?.toLowerCase().includes(f.turma.toLowerCase())) &&
+        (!f.turma || (c.turma?.curso?.cursoNome && c.turma.curso.cursoNome.toLowerCase().includes(f.turma.toLowerCase()))) &&
         (!f.capacitacaoStatus || c.capacitacaoStatus === f.capacitacaoStatus) &&
         (!f.inicio || (c.turma?.inicio && c.turma.inicio.format('YYYY-MM-DD') >= f.inicio)) &&
         (!f.termino || (c.turma?.termino && c.turma.termino.format('YYYY-MM-DD') <= f.termino))
