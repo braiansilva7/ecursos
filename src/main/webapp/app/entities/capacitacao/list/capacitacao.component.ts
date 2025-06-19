@@ -12,6 +12,7 @@ import { ITEMS_PER_PAGE, PAGE_HEADER, TOTAL_COUNT_RESPONSE_HEADER } from 'app/co
 import { DEFAULT_SORT_DATA, ITEM_DELETED_EVENT, SORT } from 'app/config/navigation.constants';
 import { FilterComponent, FilterOptions, IFilterOption, IFilterOptions } from 'app/shared/filter';
 import { ICapacitacao } from '../capacitacao.model';
+import { StatusEnum } from 'app/entities/enumerations/status-enum.model';
 import dayjs from 'dayjs';
 import { CapacitacaoService, EntityArrayResponseType } from '../service/capacitacao.service';
 import { CapacitacaoDeleteDialogComponent } from '../delete/capacitacao-delete-dialog.component';
@@ -49,6 +50,21 @@ export class CapacitacaoComponent implements OnInit {
   currentSearch = '';
   filters: IFilterOptions = new FilterOptions();
 
+  statusEnumValues = Object.keys(StatusEnum);
+  showAdvanced = false;
+  allCapacitacaos: ICapacitacao[] = [];
+  advancedFilters: any = {
+    nomeGuerra: '',
+    posto: '',
+    ano: '',
+    turma: '',
+    om: '',
+    cursoSigla: '',
+    inicio: '',
+    termino: '',
+    capacitacaoStatus: ''
+  };
+
   itemsPerPage = ITEMS_PER_PAGE;
   totalItems = 0;
   page = 1;
@@ -77,6 +93,8 @@ export class CapacitacaoComponent implements OnInit {
         tap(() => { this.load(); }),
       )
       .subscribe();
+
+    this.loadAllCapacitacaos();
 
     this.filters.filterChanges.subscribe(filterOptions => this.handleNavigation(1, this.sortState(), filterOptions));
   }
@@ -245,6 +263,44 @@ export class CapacitacaoComponent implements OnInit {
       return this.capacitacaoService.search(queryObject).pipe(tap(() => (this.isLoading = false)));
     }
     return this.capacitacaoService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+  }
+
+  loadAllCapacitacaos(): void {
+    this.capacitacaoService.queryAll({ eagerload: true }).subscribe(res => {
+      this.allCapacitacaos = res.body ?? [];
+    });
+  }
+
+  applyAdvancedFilters(): void {
+    const f = this.advancedFilters;
+    this.capacitacaos = this.allCapacitacaos.filter(c => {
+      return (
+        (!f.nomeGuerra || c.militar?.nomeGuerra?.toLowerCase().includes(f.nomeGuerra.toLowerCase())) &&
+        (!f.posto || c.militar?.posto?.postoSigla?.toLowerCase().includes(f.posto.toLowerCase())) &&
+        (!f.om || c.militar?.om?.toLowerCase().includes(f.om.toLowerCase())) &&
+        (!f.cursoSigla || c.turma?.curso?.cursoSigla?.toLowerCase().includes(f.cursoSigla.toLowerCase())) &&
+        (!f.ano || String(c.turma?.ano ?? '').includes(f.ano)) &&
+        (!f.turma || String(c.turma?.numeroBca ?? '').includes(f.turma)) &&
+        (!f.capacitacaoStatus || c.capacitacaoStatus === f.capacitacaoStatus) &&
+        (!f.inicio || (c.turma?.inicio && c.turma.inicio.format('YYYY-MM-DD') >= f.inicio)) &&
+        (!f.termino || (c.turma?.termino && c.turma.termino.format('YYYY-MM-DD') <= f.termino))
+      );
+    });
+  }
+
+  clearAdvancedFilters(): void {
+    this.advancedFilters = {
+      nomeGuerra: '',
+      posto: '',
+      ano: '',
+      turma: '',
+      om: '',
+      cursoSigla: '',
+      inicio: '',
+      termino: '',
+      capacitacaoStatus: ''
+    };
+    this.capacitacaos = this.allCapacitacaos.slice();
   }
 
   protected handleNavigation(page: number, sortState: SortState, filterOptions?: IFilterOption[], currentSearch?: string): void {
