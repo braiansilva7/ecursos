@@ -68,22 +68,42 @@
   <div class="card card-body mt-2" *ngIf="showAdvanced">
     <form class="row g-2">
       <div class="col-md-3">
-        <input type="text" class="form-control" [(ngModel)]="advancedFilters.nomeGuerra" name="nomeGuerra" placeholder="Nome de Guerra" />
+        <select class="form-select" [(ngModel)]="advancedFilters.nomeGuerra" name="nomeGuerra">
+          <option value="">Nome de Guerra</option>
+          @for (n of nomeGuerraOptions; track n) {
+            <option [value]="n">{{ n }}</option>
+          }
+        </select>
       </div>
       <div class="col-md-2">
-        <input type="text" class="form-control" [(ngModel)]="advancedFilters.posto" name="posto" placeholder="Posto" />
+        <select class="form-select" [(ngModel)]="advancedFilters.posto" name="posto">
+          <option value="">Posto</option>
+          @for (p of postoOptions; track p) {
+            <option [value]="p">{{ p }}</option>
+          }
+        </select>
       </div>
       <div class="col-md-2">
         <input type="text" class="form-control" [(ngModel)]="advancedFilters.om" name="om" placeholder="OM" />
       </div>
       <div class="col-md-2">
-        <input type="text" class="form-control" [(ngModel)]="advancedFilters.cursoSigla" name="cursoSigla" placeholder="Sigla do Curso" />
+        <select class="form-select" [(ngModel)]="advancedFilters.cursoSigla" name="cursoSigla">
+          <option value="">Sigla do Curso</option>
+          @for (c of cursoSiglaOptions; track c) {
+            <option [value]="c">{{ c }}</option>
+          }
+        </select>
       </div>
       <div class="col-md-2">
         <input type="number" class="form-control" [(ngModel)]="advancedFilters.ano" name="ano" placeholder="Ano" />
       </div>
       <div class="col-md-2">
-        <input type="text" class="form-control" [(ngModel)]="advancedFilters.turma" name="turma" placeholder="Turma" />
+        <select class="form-select" [(ngModel)]="advancedFilters.turma" name="turma">
+          <option value="">Turma</option>
+          @for (t of turmaOptions; track t) {
+            <option [value]="t">{{ t }}</option>
+          }
+        </select>
       </div>
       <div class="col-md-3">
         <select class="form-select" [(ngModel)]="advancedFilters.capacitacaoStatus" name="capacitacaoStatus">

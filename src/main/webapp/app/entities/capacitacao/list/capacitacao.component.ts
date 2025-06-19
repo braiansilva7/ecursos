@@ -53,6 +53,10 @@ export class CapacitacaoComponent implements OnInit {
   statusEnumValues = Object.keys(StatusEnum);
   showAdvanced = false;
   allCapacitacaos: ICapacitacao[] = [];
+  nomeGuerraOptions: string[] = [];
+  postoOptions: string[] = [];
+  cursoSiglaOptions: string[] = [];
+  turmaOptions: string[] = [];
   advancedFilters: any = {
     nomeGuerra: '',
     posto: '',
@@ -268,7 +272,37 @@ export class CapacitacaoComponent implements OnInit {
   loadAllCapacitacaos(): void {
     this.capacitacaoService.queryAll({ eagerload: true }).subscribe(res => {
       this.allCapacitacaos = res.body ?? [];
+      this.updateFilterOptions();
+      this.capacitacaos = this.allCapacitacaos.slice();
+      this.totalItems = this.capacitacaos.length;
     });
+  }
+
+  updateFilterOptions(): void {
+    const nomeSet = new Set<string>();
+    const postoSet = new Set<string>();
+    const cursoSet = new Set<string>();
+    const turmaSet = new Set<string>();
+
+    this.allCapacitacaos.forEach(c => {
+      if (c.militar?.nomeGuerra) {
+        nomeSet.add(c.militar.nomeGuerra);
+      }
+      if (c.militar?.posto?.postoSigla) {
+        postoSet.add(c.militar.posto.postoSigla);
+      }
+      if (c.turma?.curso?.cursoSigla) {
+        cursoSet.add(c.turma.curso.cursoSigla);
+      }
+      if (c.turma?.numeroBca) {
+        turmaSet.add(c.turma.numeroBca);
+      }
+    });
+
+    this.nomeGuerraOptions = Array.from(nomeSet).sort();
+    this.postoOptions = Array.from(postoSet).sort();
+    this.cursoSiglaOptions = Array.from(cursoSet).sort();
+    this.turmaOptions = Array.from(turmaSet).sort();
   }
 
   applyAdvancedFilters(): void {
@@ -286,6 +320,7 @@ export class CapacitacaoComponent implements OnInit {
         (!f.termino || (c.turma?.termino && c.turma.termino.format('YYYY-MM-DD') <= f.termino))
       );
     });
+    this.totalItems = this.capacitacaos.length;
   }
 
   clearAdvancedFilters(): void {
@@ -301,6 +336,7 @@ export class CapacitacaoComponent implements OnInit {
       capacitacaoStatus: ''
     };
     this.capacitacaos = this.allCapacitacaos.slice();
+    this.totalItems = this.capacitacaos.length;
   }
 
   protected handleNavigation(page: number, sortState: SortState, filterOptions?: IFilterOption[], currentSearch?: string): void {
