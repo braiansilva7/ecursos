@@ -57,6 +57,11 @@ export class CapacitacaoComponent implements OnInit {
   postoOptions: string[] = [];
   cursoSiglaOptions: string[] = [];
   turmaOptions: string[] = [];
+  omOptions: string[] = [];
+  categoriaOptions: string[] = [];
+
+  filteredCapacitacaos: ICapacitacao[] = [];
+  advancedFiltersActive = false;
   advancedFilters: any = {
     nomeGuerra: '',
     posto: '',
@@ -64,6 +69,7 @@ export class CapacitacaoComponent implements OnInit {
     turma: '',
     om: '',
     cursoSigla: '',
+    categoria: '',
     inicio: '',
     termino: '',
     capacitacaoStatus: ''
@@ -217,7 +223,12 @@ export class CapacitacaoComponent implements OnInit {
   }
 
   navigateToPage(page: number): void {
-    this.handleNavigation(page, this.sortState(), this.filters.filterOptions, this.currentSearch);
+    if (this.advancedFiltersActive) {
+      this.page = page;
+      this.updatePageData();
+    } else {
+      this.handleNavigation(page, this.sortState(), this.filters.filterOptions, this.currentSearch);
+    }
   }
 
   protected fillComponentAttributeFromRoute(params: ParamMap, data: Data): void {
@@ -273,8 +284,11 @@ export class CapacitacaoComponent implements OnInit {
     this.capacitacaoService.queryAll({ eagerload: true }).subscribe(res => {
       this.allCapacitacaos = res.body ?? [];
       this.updateFilterOptions();
-      this.capacitacaos = this.allCapacitacaos.slice();
-      this.totalItems = this.capacitacaos.length;
+      this.advancedFiltersActive = false;
+      this.filteredCapacitacaos = [];
+      this.page = 1;
+      this.totalItems = this.allCapacitacaos.length;
+      this.updatePageData();
     });
   }
 
@@ -283,6 +297,8 @@ export class CapacitacaoComponent implements OnInit {
     const postoSet = new Set<string>();
     const cursoSet = new Set<string>();
     const turmaSet = new Set<string>();
+    const omSet = new Set<string>();
+    const categoriaSet = new Set<string>();
 
     this.allCapacitacaos.forEach(c => {
       if (c.militar?.nomeGuerra) {
@@ -294,8 +310,14 @@ export class CapacitacaoComponent implements OnInit {
       if (c.turma?.curso?.cursoSigla) {
         cursoSet.add(c.turma.curso.cursoSigla);
       }
-      if (c.turma?.numeroBca) {
-        turmaSet.add(c.turma.numeroBca);
+      if (c.turma?.curso?.cursoNome) {
+        turmaSet.add(c.turma.curso.cursoNome);
+      }
+      if (c.militar?.om) {
+        omSet.add(c.militar.om);
+      }
+      if (c.turma?.curso?.tipo?.categoria) {
+        categoriaSet.add(c.turma.curso.tipo.categoria);
       }
     });
 
@@ -303,24 +325,30 @@ export class CapacitacaoComponent implements OnInit {
     this.postoOptions = Array.from(postoSet).sort();
     this.cursoSiglaOptions = Array.from(cursoSet).sort();
     this.turmaOptions = Array.from(turmaSet).sort();
+    this.omOptions = Array.from(omSet).sort();
+    this.categoriaOptions = Array.from(categoriaSet).sort();
   }
 
   applyAdvancedFilters(): void {
     const f = this.advancedFilters;
-    this.capacitacaos = this.allCapacitacaos.filter(c => {
+    this.filteredCapacitacaos = this.allCapacitacaos.filter(c => {
       return (
         (!f.nomeGuerra || c.militar?.nomeGuerra?.toLowerCase().includes(f.nomeGuerra.toLowerCase())) &&
         (!f.posto || c.militar?.posto?.postoSigla?.toLowerCase().includes(f.posto.toLowerCase())) &&
         (!f.om || c.militar?.om?.toLowerCase().includes(f.om.toLowerCase())) &&
         (!f.cursoSigla || c.turma?.curso?.cursoSigla?.toLowerCase().includes(f.cursoSigla.toLowerCase())) &&
+        (!f.categoria || c.turma?.curso?.tipo?.categoria?.toLowerCase().includes(f.categoria.toLowerCase())) &&
         (!f.ano || String(c.turma?.ano ?? '').includes(f.ano)) &&
-        (!f.turma || String(c.turma?.numeroBca ?? '').includes(f.turma)) &&
+        (!f.turma || c.turma?.curso?.cursoNome?.toLowerCase().includes(f.turma.toLowerCase())) &&
         (!f.capacitacaoStatus || c.capacitacaoStatus === f.capacitacaoStatus) &&
         (!f.inicio || (c.turma?.inicio && c.turma.inicio.format('YYYY-MM-DD') >= f.inicio)) &&
         (!f.termino || (c.turma?.termino && c.turma.termino.format('YYYY-MM-DD') <= f.termino))
       );
     });
-    this.totalItems = this.capacitacaos.length;
+    this.advancedFiltersActive = true;
+    this.page = 1;
+    this.totalItems = this.filteredCapacitacaos.length;
+    this.updatePageData();
   }
 
   clearAdvancedFilters(): void {
@@ -331,12 +359,23 @@ export class CapacitacaoComponent implements OnInit {
       turma: '',
       om: '',
       cursoSigla: '',
+      categoria: '',
       inicio: '',
       termino: '',
       capacitacaoStatus: ''
     };
-    this.capacitacaos = this.allCapacitacaos.slice();
-    this.totalItems = this.capacitacaos.length;
+    this.advancedFiltersActive = false;
+    this.filteredCapacitacaos = [];
+    this.page = 1;
+    this.totalItems = this.allCapacitacaos.length;
+    this.updatePageData();
+  }
+
+  updatePageData(): void {
+    const source = this.advancedFiltersActive ? this.filteredCapacitacaos : this.allCapacitacaos;
+    const start = (this.page - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    this.capacitacaos = source.slice(start, end);
   }
 
   protected handleNavigation(page: number, sortState: SortState, filterOptions?: IFilterOption[], currentSearch?: string): void {
