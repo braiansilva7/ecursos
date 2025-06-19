@@ -84,7 +84,12 @@
         </select>
       </div>
       <div class="col-md-2">
-        <input type="text" class="form-control" [(ngModel)]="advancedFilters.om" name="om" placeholder="OM" />
+        <select class="form-select" [(ngModel)]="advancedFilters.om" name="om">
+          <option value="">OM</option>
+          @for (o of omOptions; track o) {
+            <option [value]="o">{{ o }}</option>
+          }
+        </select>
       </div>
       <div class="col-md-2">
         <select class="form-select" [(ngModel)]="advancedFilters.cursoSigla" name="cursoSigla">
@@ -102,6 +107,14 @@
           <option value="">Turma</option>
           @for (t of turmaOptions; track t) {
             <option [value]="t">{{ t }}</option>
+          }
+        </select>
+      </div>
+      <div class="col-md-2">
+        <select class="form-select" [(ngModel)]="advancedFilters.categoria" name="categoria">
+          <option value="">Categoria</option>
+          @for (cat of categoriaOptions; track cat) {
+            <option [value]="cat">{{ cat }}</option>
           }
         </select>
       </div>
