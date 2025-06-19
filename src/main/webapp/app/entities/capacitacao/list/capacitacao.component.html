@@ -62,12 +62,12 @@
   </form>
 
   <div class="mt-2">
-    <button class="btn btn-secondary" (click)="showAdvanced = !showAdvanced">Filtros Avançados</button>
+    <button class="btn btn-secondary" (click)="toggleAdvancedFilters()">Filtros Avançados</button>
   </div>
 
   <div class="card card-body mt-2" *ngIf="showAdvanced">
-    <form class="row g-2">
-      <div class="col-md-3">
+    <form class="row row-cols-1 row-cols-md-5 g-2">
+      <div class="col">
         <select class="form-select" [(ngModel)]="advancedFilters.nomeGuerra" name="nomeGuerra">
           <option value="">Nome de Guerra</option>
           @for (n of nomeGuerraOptions; track n) {
@@ -75,7 +75,7 @@
           }
         </select>
       </div>
-      <div class="col-md-2">
+      <div class="col">
         <select class="form-select" [(ngModel)]="advancedFilters.posto" name="posto">
           <option value="">Posto</option>
           @for (p of postoOptions; track p) {
@@ -83,7 +83,7 @@
           }
         </select>
       </div>
-      <div class="col-md-2">
+      <div class="col">
         <select class="form-select" [(ngModel)]="advancedFilters.om" name="om">
           <option value="">OM</option>
           @for (o of omOptions; track o) {
@@ -91,7 +91,7 @@
           }
         </select>
       </div>
-      <div class="col-md-2">
+      <div class="col">
         <select class="form-select" [(ngModel)]="advancedFilters.cursoSigla" name="cursoSigla">
           <option value="">Sigla do Curso</option>
           @for (c of cursoSiglaOptions; track c) {
@@ -99,10 +99,10 @@
           }
         </select>
       </div>
-      <div class="col-md-2">
+      <div class="col">
         <input type="number" class="form-control" [(ngModel)]="advancedFilters.ano" name="ano" placeholder="Ano" />
       </div>
-      <div class="col-md-2">
+      <div class="col">
         <select class="form-select" [(ngModel)]="advancedFilters.turma" name="turma">
           <option value="">Turma</option>
           @for (t of turmaOptions; track t) {
@@ -110,7 +110,7 @@
           }
         </select>
       </div>
-      <div class="col-md-2">
+      <div class="col">
         <select class="form-select" [(ngModel)]="advancedFilters.categoria" name="categoria">
           <option value="">Categoria</option>
           @for (cat of categoriaOptions; track cat) {
@@ -118,7 +118,7 @@
           }
         </select>
       </div>
-      <div class="col-md-3">
+      <div class="col">
         <select class="form-select" [(ngModel)]="advancedFilters.capacitacaoStatus" name="capacitacaoStatus">
           <option value="">Status da Capacitação</option>
           @for (s of statusEnumValues; track s) {
@@ -126,10 +126,10 @@
           }
         </select>
       </div>
-      <div class="col-md-3">
+      <div class="col">
         <input type="date" class="form-control" [(ngModel)]="advancedFilters.inicio" name="inicio" />
       </div>
-      <div class="col-md-3">
+      <div class="col">
         <input type="date" class="form-control" [(ngModel)]="advancedFilters.termino" name="termino" />
       </div>
       <div class="col-12">

@@ -88,6 +88,13 @@ export class CapacitacaoComponent implements OnInit {
 
   trackId = (_index: number, item: ICapacitacao): number => this.capacitacaoService.getCapacitacaoIdentifier(item);
 
+  toggleAdvancedFilters(): void {
+    this.showAdvanced = !this.showAdvanced;
+    if (this.showAdvanced && this.allCapacitacaos.length === 0) {
+      this.loadAllCapacitacaos();
+    }
+  }
+
   ngOnInit(): void {
 
     this.activatedRoute.queryParams.subscribe((params: any) => {
