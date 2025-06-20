@@ -6,6 +6,7 @@
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Training",
         "generatePDF": "Generate PDF",
+        "generateExcel": "Generate Excel",
         "createOrEditLabel": "Create or edit a Training",
         "search": "Search...",
         "notFound": "No Training found"

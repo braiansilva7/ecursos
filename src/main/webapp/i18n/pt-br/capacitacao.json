@@ -6,6 +6,7 @@
         "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar uma nova Capacitação",
         "generatePDF": "Gerar PDF",
+        "generateExcel": "Gerar Excel",
         "createOrEditLabel": "Criar ou editar Capacitação",
         "search": "Pesquisar...",
         "notFound": "Nenhuma Capacitação encontrada"
