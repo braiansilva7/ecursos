@@ -175,4 +175,47 @@
             </div>
         </div>
     </div>
+
+    <div class="row mt-3">
+        <div class="col-lg-6">
+            <div class="card todo-list-container">
+                <div class="card-header">
+                <h3 class="card-title">
+                    <i class="ion ion-clipboard mr-1" jhiTranslate="ecursosApp.dashboard.fim_capacitacao">Próximo ao Fim da Capacitação </i>
+                </h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <ul class="todo-list" data-widget="todo-list">
+                        <li *ngFor="let capacitacao of capacitacaoFimCollection">
+                          <span class="text">
+                            <a
+                                [routerLink]="['/capacitacao']"
+                                [queryParams]="{ status: capacitacao.turma?.id }"
+                                routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"
+                                class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover"
+                                *ngIf="capacitacao.militar?.nomeGuerra"
+                            >
+                                {{ capacitacao.turma?.curso?.cursoNome ?? 'N/A' }}
+                            </a> -
+                                {{ capacitacao.turma?.ano ?? 'N/A' }}
+                          </span>
+                          <small class="badge" [ngClass]="capacitacao.badgeClass ?? 'badge-secondary'">
+                            <i class="far fa-clock"></i>
+                            {{ formatDate(capacitacao.turma?.termino) }}
+                        </small>
+                          <div class="tools">
+                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-trash-o"></i>
+                          </div>
+                        </li>
+                      </ul>
+                      <p *ngIf="!capacitacaoFimCollection || capacitacaoFimCollection.length === 0" class="text-center text-muted">
+                        <span jhiTranslate="ecursosApp.dashboard.msg_capacitacao">Sem informações disponíveis.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div> <!--end::App Content-->

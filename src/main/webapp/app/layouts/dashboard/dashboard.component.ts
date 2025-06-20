@@ -28,6 +28,7 @@ export default class DashboardComponent implements OnInit {
   capacitacao: ICapacitacao | null = null;
   militarsSharedCollection: IMilitar[] = [];
   capacitacaoSharedCollection: ICapacitacao[] = [];
+  capacitacaoFimCollection: ICapacitacao[] = [];
   capacitacaoCollection: ICapacitacao[] = [];
 
   totalEmAndamento = 0;
@@ -165,9 +166,9 @@ export default class DashboardComponent implements OnInit {
                 if (!startDate) {
                   return false;
                 }
-          
+
                 const diffDays = Math.ceil((startDate.getTime() - this.today.getTime()) / (1000 * 60 * 60 * 24));
-          
+
                 // Apenas cursos que começam em até 10 dias e não são no dia atual
                 return diffDays > 0 && diffDays <= 10;
               })
@@ -175,11 +176,11 @@ export default class DashboardComponent implements OnInit {
                 const ano = capacitacao.turma?.ano;
                 const cursoNome = capacitacao.turma?.curso?.cursoNome;
                 const chave = `${ano}-${cursoNome}`;
-          
+
                 if (!acc.has(chave)) {
                   acc.set(chave, capacitacao);
                 }
-          
+
                 return acc;
               }, new Map<string, ICapacitacao>())
               .values()
@@ -191,8 +192,43 @@ export default class DashboardComponent implements OnInit {
           })).sort((a, b) => {
             const dateA = a.turma?.inicio ? this.convertDayjsToDate(a.turma.inicio)?.getTime() ?? 0 : 0;
             const dateB = b.turma?.inicio ? this.convertDayjsToDate(b.turma.inicio)?.getTime() ?? 0 : 0;
-          
+
             return dateA - dateB; // Ascendente (mais próxima primeiro)
+          });
+
+          this.capacitacaoFimCollection = Array.from(
+            this.capacitacaoService
+              .addCapacitacaoToCollectionIfMissing<ICapacitacao>(
+                capacitacoes,
+                this.capacitacao?.militar
+              )
+              .filter(capacitacao => {
+                const endDate = capacitacao.turma?.termino ? this.convertDayjsToDate(capacitacao.turma.termino) : null;
+                if (!endDate) {
+                  return false;
+                }
+                const diffDays = Math.ceil((endDate.getTime() - this.today.getTime()) / (1000 * 60 * 60 * 24));
+                return diffDays > 0 && diffDays <= 7;
+              })
+              .reduce((acc, capacitacao) => {
+                const ano = capacitacao.turma?.ano;
+                const cursoNome = capacitacao.turma?.curso?.cursoNome;
+                const chave = `${ano}-${cursoNome}`;
+                if (!acc.has(chave)) {
+                  acc.set(chave, capacitacao);
+                }
+                return acc;
+              }, new Map<string, ICapacitacao>())
+              .values()
+          ).map(capacitacao => ({
+            ...capacitacao,
+            badgeClass: this.getBadgeClass(
+              capacitacao.turma?.termino ? this.convertDayjsToDate(capacitacao.turma.termino) : null
+            ),
+          })).sort((a, b) => {
+            const dateA = a.turma?.termino ? this.convertDayjsToDate(a.turma.termino)?.getTime() ?? 0 : 0;
+            const dateB = b.turma?.termino ? this.convertDayjsToDate(b.turma.termino)?.getTime() ?? 0 : 0;
+            return dateA - dateB;
           });
 
           this.capacitacaoCollection = this.capacitacaoService.addCapacitacaoToCollectionIfMissing<ICapacitacao>(
