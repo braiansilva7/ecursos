@@ -108,8 +108,8 @@ export class CapacitacaoComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe((params: any) => {
       if (params['status']) {
-        this.statusFilter = params['status'];
-        this.search(this.statusFilter!); // Executa a busca com o status filtrado
+        this.showAdvanced = true;
+        this.advancedFilters.capacitacaoStatus = params['status'];
       }
 
       if (params['turma']) {
@@ -395,7 +395,10 @@ export class CapacitacaoComponent implements OnInit {
       this.page = 1;
       this.totalItems = this.allCapacitacaos.length;
       this.updatePageData();
-      if (applyFilterAfterLoad && (this.advancedFilters.turma || this.advancedFilters.ano)) {
+      if (
+        applyFilterAfterLoad &&
+        (this.advancedFilters.turma || this.advancedFilters.ano || this.advancedFilters.capacitacaoStatus)
+      ) {
         this.applyAdvancedFilters();
       }
     });
