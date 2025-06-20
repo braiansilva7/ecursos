@@ -13,6 +13,7 @@
       "indicado": "Militares Cursos Indicados",
       "concluido": "Militares Cursos Concluídos",
       "reprovado": "Militares Cursos Reprovados",
+      "fim_capacitacao": "Próximo ao Fim da Capacitação",
       "msg_capacitacao": "Sem informações disponíveis."
     }
   }

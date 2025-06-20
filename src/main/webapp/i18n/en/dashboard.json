@@ -13,6 +13,7 @@
       "reprovado": "Disapproved",
       "indicado": "Military Courses Indicated",
       "concluido": "Military Courses Completed",
+      "fim_capacitacao": "Near the End of the Training",
       "msg_capacitacao": "Sem informações disponíveis."
     }
   }
