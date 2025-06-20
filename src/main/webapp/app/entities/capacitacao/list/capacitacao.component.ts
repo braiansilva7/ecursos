@@ -103,6 +103,8 @@ export class CapacitacaoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const queryParams = this.activatedRoute.snapshot.queryParamMap;
+    const skipInitialLoad = queryParams.has('turma') || queryParams.has('ano');
 
     this.activatedRoute.queryParams.subscribe((params: any) => {
       if (params['status']) {
@@ -113,6 +115,11 @@ export class CapacitacaoComponent implements OnInit {
       if (params['turma']) {
         this.showAdvanced = true;
         this.advancedFilters.turma = params['turma'];
+      }
+
+      if (params['ano']) {
+        this.showAdvanced = true;
+        this.advancedFilters.ano = params['ano'];
       }
     });
 
@@ -131,8 +138,14 @@ export class CapacitacaoComponent implements OnInit {
 
     this.subscription = combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data])
       .pipe(
-        tap(([params, data]) => { this.fillComponentAttributeFromRoute(params, data); }),
-        tap(() => { this.load(); }),
+        tap(([params, data]) => {
+          this.fillComponentAttributeFromRoute(params, data);
+        }),
+        tap(() => {
+          if (!skipInitialLoad) {
+            this.load();
+          }
+        }),
       )
       .subscribe();
 
@@ -382,7 +395,7 @@ export class CapacitacaoComponent implements OnInit {
       this.page = 1;
       this.totalItems = this.allCapacitacaos.length;
       this.updatePageData();
-      if (applyFilterAfterLoad && this.advancedFilters.turma) {
+      if (applyFilterAfterLoad && (this.advancedFilters.turma || this.advancedFilters.ano)) {
         this.applyAdvancedFilters();
       }
     });
