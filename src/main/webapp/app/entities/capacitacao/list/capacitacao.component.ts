@@ -1,7 +1,7 @@
 import { Component, NgZone, OnInit, inject } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Data, ParamMap, Router, RouterModule } from '@angular/router';
-import { Observable, Subscription, combineLatest, filter, tap } from 'rxjs';
+import { Observable, Subscription, combineLatest, filter, tap, map } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import SharedModule from 'app/shared/shared.module';
 import { SortByDirective, SortDirective, SortService, type SortState, sortStateSignal } from 'app/shared/sort';
@@ -20,6 +20,8 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import HasAnyAuthorityDirective from 'app/shared/auth/has-any-authority.directive';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { IPosto } from 'app/entities/posto/posto.model';
+import { PostoService } from 'app/entities/posto/service/posto.service';
 
 @Component({
   standalone: true,
@@ -87,6 +89,9 @@ export class CapacitacaoComponent implements OnInit {
   protected sortService = inject(SortService);
   protected modalService = inject(NgbModal);
   protected ngZone = inject(NgZone);
+  protected postoService = inject(PostoService);
+
+  private postoPriorityMap: Map<string, number> = new Map();
 
   trackId = (_index: number, item: ICapacitacao): number => this.capacitacaoService.getCapacitacaoIdentifier(item);
 
@@ -105,6 +110,19 @@ export class CapacitacaoComponent implements OnInit {
         this.search(this.statusFilter!); // Executa a busca com o status filtrado
       }
     });
+
+    // Carrega todos os Postos para mapear a prioridade e ordenar o filtro
+    this.postoService
+      .query()
+      .pipe(map((res: HttpResponse<IPosto[]>) => res.body ?? []))
+      .subscribe(postos => {
+        this.postoPriorityMap.clear();
+        postos.forEach(p => {
+          if (p.postoSigla) {
+            this.postoPriorityMap.set(p.postoSigla, p.prioridade ?? 0);
+          }
+        });
+      });
 
     this.subscription = combineLatest([this.activatedRoute.queryParamMap, this.activatedRoute.data])
       .pipe(
@@ -392,7 +410,11 @@ export class CapacitacaoComponent implements OnInit {
     });
 
     this.nomeGuerraOptions = Array.from(nomeSet).sort();
-    this.postoOptions = Array.from(postoSet).sort();
+    this.postoOptions = Array.from(postoSet).sort((a, b) => {
+      const pa = this.postoPriorityMap.get(a) ?? Number.MAX_SAFE_INTEGER;
+      const pb = this.postoPriorityMap.get(b) ?? Number.MAX_SAFE_INTEGER;
+      return pa - pb;
+    });
     this.cursoSiglaOptions = Array.from(cursoSet).sort();
     this.turmaOptions = Array.from(turmaSet).sort();
     this.omOptions = Array.from(omSet).sort();
