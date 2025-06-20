@@ -109,6 +109,11 @@ export class CapacitacaoComponent implements OnInit {
         this.statusFilter = params['status'];
         this.search(this.statusFilter!); // Executa a busca com o status filtrado
       }
+
+      if (params['turma']) {
+        this.showAdvanced = true;
+        this.advancedFilters.turma = params['turma'];
+      }
     });
 
     // Carrega todos os Postos para mapear a prioridade e ordenar o filtro
@@ -131,7 +136,7 @@ export class CapacitacaoComponent implements OnInit {
       )
       .subscribe();
 
-    this.loadAllCapacitacaos();
+    this.loadAllCapacitacaos(true);
 
     this.filters.filterChanges.subscribe(filterOptions => this.handleNavigation(1, this.sortState(), filterOptions));
   }
@@ -368,7 +373,7 @@ export class CapacitacaoComponent implements OnInit {
     return this.capacitacaoService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
   }
 
-  loadAllCapacitacaos(): void {
+  loadAllCapacitacaos(applyFilterAfterLoad: boolean = false): void {
     this.capacitacaoService.queryAll({ eagerload: true }).subscribe(res => {
       this.allCapacitacaos = res.body ?? [];
       this.updateFilterOptions();
@@ -377,6 +382,9 @@ export class CapacitacaoComponent implements OnInit {
       this.page = 1;
       this.totalItems = this.allCapacitacaos.length;
       this.updatePageData();
+      if (applyFilterAfterLoad && this.advancedFilters.turma) {
+        this.applyAdvancedFilters();
+      }
     });
   }
 
