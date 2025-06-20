@@ -26,6 +26,13 @@
       >
         <span jhiTranslate="ecursosApp.capacitacao.home.generatePDF">Gerar PDF</span>
       </button>
+      <button
+        id="generate-excel"
+        class="btn btn-secondary ms-2"
+        (click)="generateExcel()"
+      >
+        <span jhiTranslate="ecursosApp.capacitacao.home.generateExcel">Gerar Excel</span>
+      </button>
     </div>
   </h2>
 
@@ -68,12 +75,16 @@
   <div class="card card-body mt-2" *ngIf="showAdvanced">
     <form class="row row-cols-1 row-cols-md-5 g-2">
       <div class="col">
-        <select class="form-select" [(ngModel)]="advancedFilters.nomeGuerra" name="nomeGuerra">
-          <option value="">Nome de Guerra</option>
-          @for (n of nomeGuerraOptions; track n) {
-            <option [value]="n">{{ n }}</option>
-          }
-        </select>
+        <ng-select
+          class="form-select"
+          [items]="nomeGuerraOptions"
+          [searchable]="true"
+          [clearable]="true"
+          bindLabel=""
+          name="nomeGuerra"
+          [(ngModel)]="advancedFilters.nomeGuerra"
+          placeholder="Nome de Guerra"
+        ></ng-select>
       </div>
       <div class="col">
         <select class="form-select" [(ngModel)]="advancedFilters.posto" name="posto">
@@ -92,23 +103,31 @@
         </select>
       </div>
       <div class="col">
-        <select class="form-select" [(ngModel)]="advancedFilters.cursoSigla" name="cursoSigla">
-          <option value="">Sigla do Curso</option>
-          @for (c of cursoSiglaOptions; track c) {
-            <option [value]="c">{{ c }}</option>
-          }
-        </select>
+        <ng-select
+          class="form-select"
+          [items]="cursoSiglaOptions"
+          [searchable]="true"
+          [clearable]="true"
+          bindLabel=""
+          name="cursoSigla"
+          [(ngModel)]="advancedFilters.cursoSigla"
+          placeholder="Sigla do Curso"
+        ></ng-select>
       </div>
       <div class="col">
         <input type="number" class="form-control" [(ngModel)]="advancedFilters.ano" name="ano" placeholder="Ano" />
       </div>
       <div class="col">
-        <select class="form-select" [(ngModel)]="advancedFilters.turma" name="turma">
-          <option value="">Turma</option>
-          @for (t of turmaOptions; track t) {
-            <option [value]="t">{{ t }}</option>
-          }
-        </select>
+        <ng-select
+          class="form-select"
+          [items]="turmaOptions"
+          [searchable]="true"
+          [clearable]="true"
+          bindLabel=""
+          name="turma"
+          [(ngModel)]="advancedFilters.turma"
+          placeholder="Turma"
+        ></ng-select>
       </div>
       <div class="col">
         <select class="form-select" [(ngModel)]="advancedFilters.categoria" name="categoria">

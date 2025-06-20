@@ -19,6 +19,7 @@ import { CapacitacaoDeleteDialogComponent } from '../delete/capacitacao-delete-d
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import HasAnyAuthorityDirective from 'app/shared/auth/has-any-authority.directive';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
   standalone: true,
@@ -27,6 +28,7 @@ import HasAnyAuthorityDirective from 'app/shared/auth/has-any-authority.directiv
   imports: [
     RouterModule,
     FormsModule,
+    NgSelectModule,
     SharedModule,
     SortDirective,
     SortByDirective,
@@ -181,6 +183,67 @@ export class CapacitacaoComponent implements OnInit {
     });
 
     doc.save('Capacitacao.pdf');
+  }
+
+  generateExcel(): void {
+    const formatStatus = (status: string | null | undefined): string => {
+      if (!status) {
+        return '';
+      }
+      switch (status) {
+        case 'EM_ANDAMENTO':
+          return 'EM ANDAMENTO';
+        case 'INDICACAO_NAO_APROVADA_PELA_ORGANIZACAO_DO_CURSO':
+          return 'INDICAÇÃO NÃO APROVADA';
+        default:
+          return status.replace(/_/g, ' ');
+      }
+    };
+
+    const headers = [
+      'Início',
+      'Término',
+      'Ano',
+      'Status',
+      'N. BCA',
+      'OM',
+      'Posto',
+      'Militar',
+      'Nome de Guerra',
+      'E-mail',
+      'Categoria',
+      'Curso',
+      'SIGPES',
+    ];
+
+    const rows = this.capacitacaos?.map(c => [
+      c.turma?.inicio ? this.getFormattedDate(c.turma.inicio) : '',
+      c.turma?.termino ? this.getFormattedDate(c.turma.termino) : '',
+      c.turma?.ano ?? '',
+      formatStatus(c.capacitacaoStatus),
+      c.turma?.numeroBca ?? '',
+      c.militar?.om ?? '',
+      c.militar?.posto?.postoSigla ?? '',
+      c.militar?.nomeCompleto ?? '',
+      c.militar?.nomeGuerra ?? '',
+      c.militar?.email ?? '',
+      c.turma?.curso?.tipo?.categoria ?? '',
+      c.turma?.curso?.cursoNome ?? '',
+      c.sigpes ?? '',
+    ]);
+
+    const csvContent =
+      headers.join(';') +
+      '\n' +
+      (rows ?? [])
+        .map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(';'))
+        .join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'Capacitacao.csv';
+    link.click();
   }
 
   getFormattedDate(inicio: any): string {
