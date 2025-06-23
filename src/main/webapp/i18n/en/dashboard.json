@@ -14,6 +14,7 @@
       "indicado": "Military Courses Indicated",
       "concluido": "Military Courses Completed",
       "fim_capacitacao": "Near the End of the Training",
+      "turmas_finalizadas": "Finished Courses",
       "msg_capacitacao": "Sem informações disponíveis."
     }
   }

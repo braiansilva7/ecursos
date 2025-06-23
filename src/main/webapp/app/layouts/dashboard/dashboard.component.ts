@@ -29,6 +29,7 @@ export default class DashboardComponent implements OnInit {
   militarsSharedCollection: IMilitar[] = [];
   capacitacaoSharedCollection: ICapacitacao[] = [];
   capacitacaoFimCollection: ICapacitacao[] = [];
+  capacitacaoFinalizadaCollection: ICapacitacao[] = [];
   capacitacaoCollection: ICapacitacao[] = [];
 
   totalEmAndamento = 0;
@@ -209,6 +210,41 @@ export default class DashboardComponent implements OnInit {
                 }
                 const diffDays = Math.ceil((endDate.getTime() - this.today.getTime()) / (1000 * 60 * 60 * 24));
                 return diffDays > 0 && diffDays <= 7;
+              })
+              .reduce((acc, capacitacao) => {
+                const ano = capacitacao.turma?.ano;
+                const cursoNome = capacitacao.turma?.curso?.cursoNome;
+                const chave = `${ano}-${cursoNome}`;
+                if (!acc.has(chave)) {
+                  acc.set(chave, capacitacao);
+                }
+                return acc;
+              }, new Map<string, ICapacitacao>())
+              .values()
+          ).map(capacitacao => ({
+            ...capacitacao,
+            badgeClass: this.getBadgeClass(
+              capacitacao.turma?.termino ? this.convertDayjsToDate(capacitacao.turma.termino) : null
+            ),
+          })).sort((a, b) => {
+            const dateA = a.turma?.termino ? this.convertDayjsToDate(a.turma.termino)?.getTime() ?? 0 : 0;
+            const dateB = b.turma?.termino ? this.convertDayjsToDate(b.turma.termino)?.getTime() ?? 0 : 0;
+            return dateA - dateB;
+          });
+
+          this.capacitacaoFinalizadaCollection = Array.from(
+            this.capacitacaoService
+              .addCapacitacaoToCollectionIfMissing<ICapacitacao>(
+                capacitacoes,
+                this.capacitacao?.militar
+              )
+              .filter(capacitacao => {
+                const endDate = capacitacao.turma?.termino ? this.convertDayjsToDate(capacitacao.turma.termino) : null;
+                if (!endDate) {
+                  return false;
+                }
+                const diffDays = Math.ceil((this.today.getTime() - endDate.getTime()) / (1000 * 60 * 60 * 24));
+                return diffDays >= 0 && diffDays <= 10;
               })
               .reduce((acc, capacitacao) => {
                 const ano = capacitacao.turma?.ano;

@@ -211,7 +211,50 @@
                           </div>
                         </li>
                       </ul>
-                      <p *ngIf="!capacitacaoFimCollection || capacitacaoFimCollection.length === 0" class="text-center text-muted">
+                    <p *ngIf="!capacitacaoFimCollection || capacitacaoFimCollection.length === 0" class="text-center text-muted">
+                        <span jhiTranslate="ecursosApp.dashboard.msg_capacitacao">Sem informações disponíveis.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-lg-6">
+            <div class="card todo-list-container">
+                <div class="card-header">
+                <h3 class="card-title">
+                    <i class="ion ion-clipboard mr-1" jhiTranslate="ecursosApp.dashboard.turmas_finalizadas">Turmas Finalizadas </i>
+                </h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <ul class="todo-list" data-widget="todo-list">
+                        <li *ngFor="let capacitacao of capacitacaoFinalizadaCollection">
+                          <span class="text">
+                            <a
+                                [routerLink]="['/capacitacao']"
+                                [queryParams]="{ turma: capacitacao.turma?.curso?.cursoNome, ano: capacitacao.turma?.ano }"
+                                routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"
+                                class="small-box-footer link-dark link-underline-opacity-0 link-underline-opacity-50-hover"
+                                *ngIf="capacitacao.militar?.nomeGuerra"
+                            >
+                                {{ capacitacao.turma?.curso?.cursoNome ?? 'N/A' }}
+                            </a> -
+                                {{ capacitacao.turma?.ano ?? 'N/A' }}
+                          </span>
+                          <small class="badge" [ngClass]="capacitacao.badgeClass ?? 'badge-secondary'">
+                            <i class="far fa-clock"></i>
+                            {{ formatDate(capacitacao.turma?.termino) }}
+                        </small>
+                          <div class="tools">
+                            <i class="fas fa-edit"></i>
+                            <i class="fas fa-trash-o"></i>
+                          </div>
+                        </li>
+                      </ul>
+                      <p *ngIf="!capacitacaoFinalizadaCollection || capacitacaoFinalizadaCollection.length === 0" class="text-center text-muted">
                         <span jhiTranslate="ecursosApp.dashboard.msg_capacitacao">Sem informações disponíveis.</span>
                     </p>
                 </div>
